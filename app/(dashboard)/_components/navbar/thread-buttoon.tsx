@@ -1,12 +1,14 @@
+"use client";
+
 import { Button } from "@/components/ui/button";
 import { Id } from "@/convex/_generated/dataModel";
 import { Heart, MessageCircle, Repeat2, Send } from "lucide-react";
 
-interface PostActionButtonProps {
+interface ThreadActionButtonProps {
   id: Id<"threads">;
 }
 
-const PostActionButton = ({ id }: PostActionButtonProps) => {
+const ThreadButton = ({ id }: ThreadActionButtonProps) => {
   return (
     <div className="w-full flex">
       <button className="hover:text-gray-500 p-2">
@@ -25,4 +27,4 @@ const PostActionButton = ({ id }: PostActionButtonProps) => {
   );
 };
 
-export default PostActionButton;
+export default ThreadButton;

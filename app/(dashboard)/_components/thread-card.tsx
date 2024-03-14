@@ -2,27 +2,32 @@
 
 import Image from "next/image";
 import Link from "next/link";
-
-import PostActionButton from "./navbar/post-action-buttoon";
+import { formatDistanceToNow } from "date-fns";
 import { Id } from "@/convex/_generated/dataModel";
 import ThreadActionButton from "./action-button";
+import ThreadButton from "./navbar/thread-buttoon";
 
 interface PostCardProps {
   id: Id<"threads">;
   author: string;
   // tags: string[];
-  createdAt: Number;
+  createdAt: number;
   content: string;
   imageUrl: string | undefined;
 }
 
-export const PostCard = ({
+export const ThreadCard = ({
   id,
   createdAt,
   author,
   content,
   imageUrl,
 }: PostCardProps) => {
+  
+  const createdAtLabel = formatDistanceToNow(createdAt, {
+    addSuffix: true,
+  });
+
   return (
     <Link href={`/post/${id}`}>
       <div className="w-full h-auto flex py-3">
@@ -42,7 +47,9 @@ export const PostCard = ({
           <div className="flex justify-between items-center">
             <span>{author}</span>
             <div className="flex items-center">
-              <p className="text-sm">{""}</p>
+              <p className="text-sm text-muted-foreground pr-1">
+                {createdAtLabel}
+              </p>
 
               <ThreadActionButton id={id} />
             </div>
@@ -55,7 +62,7 @@ export const PostCard = ({
             width={300}
             className="rounded-md my-2"
           />
-          <PostActionButton id={id} />
+          <ThreadButton id={id} />
 
           <p className="text-muted-foreground text-md">5 replies · 5 likes</p>
         </div>
@@ -65,4 +72,4 @@ export const PostCard = ({
   );
 };
 
-export default PostCard;
+export default ThreadCard;

@@ -32,7 +32,7 @@ const ActionButton = () => {
           <Button className="w-full" asChild variant={"ghost"}>
             <SignOutButton />
           </Button>
-          
+
           <ModeToggle />
         </div>
       </PopoverContent>

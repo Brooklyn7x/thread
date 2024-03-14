@@ -2,7 +2,7 @@
 import Image from "next/image";
 import PostList from "./_components/post-list";
 import { Button } from "@/components/ui/button";
-import PostCard from "./_components/post-card";
+import PostCard from "./_components/thread-card";
 import { currentUser, useAuth, useUser } from "@clerk/nextjs";
 import CreatePost from "./_components/create-post";
 import { db } from "@/lib/db";

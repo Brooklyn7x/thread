@@ -1,5 +1,5 @@
 import Image from "next/image";
-import PostActionButton from "../../_components/navbar/post-action-buttoon";
+import PostActionButton from "../../_components/navbar/thread-buttoon";
 import ActionButton from "../../_components/action-button";
 
 interface ThreadCommentProps {

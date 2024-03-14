@@ -1,4 +1,4 @@
-import ActionButton from "./navbar/action-button";
+import ActionButton from "./navbar/navbar-action-button";
 import { Logo } from "./navbar/logo";
 import NavbarItems from "./navbar/navbar-items";
 

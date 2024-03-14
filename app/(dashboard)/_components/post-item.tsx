@@ -3,13 +3,14 @@
 import { useQuery } from "convex/react";
 
 import { api } from "@/convex/_generated/api";
-import PostCard from "./post-card";
+import ThreadCard from "./thread-card";
+
 const PostItems = () => {
   const data = useQuery(api.threads.get);
   return (
     <div className="w-full">
       {data?.map((post) => (
-        <PostCard
+        <ThreadCard
           key={post._id}
           id={post._id}
           author={post.authorName}
