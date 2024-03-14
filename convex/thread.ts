@@ -22,11 +22,36 @@ export const create = mutation({
   },
 });
 
+export const remove = mutation({
+  args: {
+    id: v.id("threads"),
+  },
+  handler: async (ctx, args) => {
+    const identity = await ctx.auth.getUserIdentity();
 
+    if (!identity) throw new Error("Unauthrozied");
 
+    await ctx.db.delete(args.id);
+  },
+});
 
+export const update = mutation({
+  args: {
+    id: v.id("threads"),
+    content: v.string(),
+  },
+  handler: async (ctx, args) => {
+    const identity = await ctx.auth.getUserIdentity();
 
+    if (!identity) throw new Error("Unauthrozied");
 
+    const edit = await ctx.db.patch(args.id, {
+      content: args.content,
+    });
+
+    return edit;
+  },
+});
 
 export const get = query({
   args: {
