@@ -8,3 +8,43 @@ export const get = query({
     return threads;
   },
 });
+
+export const get_thread_by_id = query({
+  args: { threadId: v.id("threads") },
+  handler: async (ctx, args) => {
+    const identity = await ctx.auth.getUserIdentity();
+    if (!identity) throw new Error("Unauthrozied");
+    const threads = ctx.db.get(args.threadId);
+    return threads;
+  },
+});
+
+export const get_user_by_id = query({
+  args: { authorId: v.id("authorId") },
+  handler: async (ctx, args) => {
+    const data = await ctx.db
+      .query("threads")
+      .withIndex("by_author", (q) => q.eq("authorId", args.authorId))
+      .order("desc")
+      .collect();
+    return data;
+  },
+});
+
+export const update_thread_by_id = mutation({
+  args: {
+    id: v.id("threads"),
+    content: v.string(),
+  },
+  handler: async (ctx, args) => {
+    const identity = await ctx.auth.getUserIdentity();
+
+    if (!identity) throw new Error("Unauthrozied");
+
+    const edit = await ctx.db.patch(args.id, {
+      content: args.content,
+    });
+
+    return edit;
+  },
+});

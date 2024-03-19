@@ -14,12 +14,12 @@ export function ProfileTabs() {
       </TabsList>
       <TabsContent value="threads">
         <PostItems />
-      </TabsContent>
+      </TabsContent> 
       <TabsContent value="replies">
         <PostItems />
       </TabsContent>
       <TabsContent value="reposts">
-        <PostItems />
+        {/* <PostItems /> */}
       </TabsContent>
     </Tabs>
   );

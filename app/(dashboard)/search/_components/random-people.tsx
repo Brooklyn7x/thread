@@ -8,7 +8,7 @@ const RandromPeoplCard = () => {
   return (
     <div className="w-full">
       <div className="flex pt-5">
-        <div className="pt-1 pr-4 pb-2">
+        <div className="pt-1 pb-2 pr-4">
           <Avatar>
             <AvatarImage src="/as.jpeg" />
           </Avatar>
@@ -22,9 +22,9 @@ const RandromPeoplCard = () => {
               </span>
             </div>
 
-            <div className="items-center flex">
+            <div className="flex items-center">
               <Button
-                className="bg-background text-white rounded-2xl"
+                className="text-white bg-background rounded-2xl"
                 size={"sm"}
                 variant={"outline"}
               >

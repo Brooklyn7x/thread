@@ -30,9 +30,9 @@ const formSchema = z.object({
   title: z.string().min(2, {
     message: "Username must be at least 2 characters.",
   }),
-  image: z.string().min(2, {
-    message: "Username must be at least 2 characters.",
-  }),
+  // image: z.string().min(2, {
+  //   message: "Username must be at least 2 characters.",
+  // }),
 });
 
 const CreateForm = () => {
@@ -45,7 +45,7 @@ const CreateForm = () => {
     defaultValues: {
       title: "",
       threads: "",
-      image: "",
+      // image: "",
     },
   });
 
@@ -59,7 +59,7 @@ const CreateForm = () => {
     mutate({
       title: values.title,
       content: values.threads,
-      imageUrl: values.image,
+      // imageUrl: values.image,
     })
       .then((id) => {
         toast.success("Thread created.");
@@ -70,9 +70,9 @@ const CreateForm = () => {
   return (
     <Form {...form}>
       <form onSubmit={form.handleSubmit(onSubmit)} className="space-y-4">
-        <div className="sm:max-w-xl w-full">
-          <div className="px-6 py-4 flex w-full">
-            <div className="mt-1 pr-2">
+        <div className="w-full sm:max-w-xl">
+          <div className="flex w-full px-6 py-4">
+            <div className="pr-2 mt-1">
               <Avatar>
                 <AvatarImage src="/as.jpeg" />
               </Avatar>
@@ -85,18 +85,18 @@ const CreateForm = () => {
                   shubhamjaiswalx
                 </span>
               </div>
-              <div className="mt-1 flex space-x-2 text-muted-foreground mb-4">
+              <div className="flex mt-1 mb-4 space-x-2 text-muted-foreground">
                 <span>
-                  <Image className="h-5 w-5" />
+                  <Image className="w-5 h-5" />
                 </span>
                 <span>
-                  <Gift className="h-5 w-5" />
+                  <Gift className="w-5 h-5" />
                 </span>
                 <span>
-                  <Image className="h-5 w-5" />
+                  <Image className="w-5 h-5" />
                 </span>
                 <span>
-                  <Gift className="h-5 w-5" />
+                  <Gift className="w-5 h-5" />
                 </span>
               </div>
 
@@ -128,7 +128,7 @@ const CreateForm = () => {
                   </FormItem>
                 )}
               />
-              <FormField
+              {/* <FormField
                 control={form.control}
                 name="image"
                 render={({ field }) => (
@@ -141,7 +141,7 @@ const CreateForm = () => {
                     <FormMessage />
                   </FormItem>
                 )}
-              />
+              /> */}
             </div>
           </div>
         </div>

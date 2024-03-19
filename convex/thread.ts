@@ -65,13 +65,6 @@ export const get = query({
 });
 
 // export const create = mutation({ args: {}, handler: async (ctx, args) => {} });
-export const geta = query({
-  args: {
-    id: v.id("threads"),
-  },
-  handler: async (ctx, args) => {
-    const threads = ctx.db.get(args.id);
 
-    return threads;
-  },
-});
+
+

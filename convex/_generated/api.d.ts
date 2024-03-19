@@ -14,6 +14,8 @@ import type {
   FilterApi,
   FunctionReference,
 } from "convex/server";
+import type * as comments from "../comments.js";
+import type * as like from "../like.js";
 import type * as thread from "../thread.js";
 import type * as threads from "../threads.js";
 
@@ -26,6 +28,8 @@ import type * as threads from "../threads.js";
  * ```
  */
 declare const fullApi: ApiFromModules<{
+  comments: typeof comments;
+  like: typeof like;
   thread: typeof thread;
   threads: typeof threads;
 }>;

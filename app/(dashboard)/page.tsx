@@ -13,19 +13,17 @@ import { Avatar, AvatarFallback, AvatarImage } from "@/components/ui/avatar";
 import PostItems from "./_components/post-item";
 
 const DashboarPage = () => {
-  // const data = fakeData;
-  const data = useQuery(api.threads.get);
   const currentUser = useUser();
 
   return (
-    <div className=" h-auto">
+    <div className="h-auto">
       <div className="flex items-center py-4">
         <Avatar>
           <AvatarImage src={currentUser.user?.imageUrl} />
           <AvatarFallback>Cn</AvatarFallback>
         </Avatar>
         <CreatePost>
-          <div className="flex-1 inset-x-2 mx-3">
+          <div className="flex-1 mx-3 inset-x-2">
             <div className="flex items-center justify-between">
               <p className="px-2 text-sm text-muted-foreground">
                 Start a thread...

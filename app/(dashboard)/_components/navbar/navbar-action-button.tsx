@@ -19,7 +19,7 @@ const ActionButton = () => {
         </Button>
       </PopoverTrigger>
       <PopoverContent className="w-60">
-        <div className="flex flex-col space-y-1 w-full">
+        <div className="flex flex-col w-full space-y-1">
           <Button className="w-full" asChild variant={"ghost"}>
             <Link href={"/setting"}>Settings</Link>
           </Button>
