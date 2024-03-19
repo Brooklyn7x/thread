@@ -12,7 +12,7 @@ import CreatePost from "../create-post";
 
 const NavbarItems = () => {
   return (
-    <div className="flex items-center h-full mt-1">
+    <div className="flex items-center justify-between w-full h-full px-4 mt-1">
       <Button asChild variant={"ghost"} className="h-full" size={"lg"}>
         <Link href={"/"}>
           <HomeIcon />

@@ -3,14 +3,14 @@
 import { useQuery } from "convex/react";
 
 import { api } from "@/convex/_generated/api";
-import ThreadCard from "./thread-card";
+import ThreadCommentCard from "./thread-comment-card";
 
-const PostItems = () => {
+const ThreadCommentsItems = () => {
   const data = useQuery(api.threads.get);
   return (
     <div className="w-full">
       {data?.map((post) => (
-        <ThreadCard
+        <ThreadCommentCard
           key={post._id}
           id={post._id}
           authorName={post.authorName}
@@ -23,4 +23,4 @@ const PostItems = () => {
   );
 };
 
-export default PostItems;
+export default ThreadCommentsItems;

@@ -2,7 +2,7 @@ import Image from "next/image";
 
 const Loading = () => {
   return (
-    <div className="h-full w-full flex flex-col justify-center items-center">
+    <div className="flex flex-col items-center justify-center w-full h-full">
       <Image
         src="/logo.svg"
         alt="Logo"

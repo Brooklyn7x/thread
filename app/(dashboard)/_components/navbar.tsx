@@ -8,7 +8,7 @@ const Navbar = () => {
       <div className="px-5">
         <Logo />
       </div>
-      <div className="hidden sm:block h-full">
+      <div className="hidden h-full sm:block">
         <NavbarItems />
       </div>
       <ActionButton />

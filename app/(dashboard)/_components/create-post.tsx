@@ -1,7 +1,12 @@
 "use client";
 
 import { Button } from "@/components/ui/button";
-import { Dialog, DialogContent, DialogTrigger } from "@/components/ui/dialog";
+import {
+  Dialog,
+  DialogClose,
+  DialogContent,
+  DialogTrigger,
+} from "@/components/ui/dialog";
 import CreateForm from "./create-form";
 
 interface CreatePostProps {
@@ -12,6 +17,7 @@ const CreatePost = ({ children }: CreatePostProps) => {
   return (
     <Dialog>
       <DialogTrigger asChild>{children}</DialogTrigger>
+      {/* <DialogClose></DialogClose> */}
       <DialogContent>
         <div className="rounded-2xl">
           <CreateForm />

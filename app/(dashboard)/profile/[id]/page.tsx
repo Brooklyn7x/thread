@@ -1,11 +1,18 @@
 import { InstagramIcon } from "lucide-react";
 import Image from "next/image";
 
-const ProfileIdPage = () => {
+type Props = {
+  params: {
+    id: string;
+  };
+};
+
+const ProfileIdPage = ({ params }: Props) => {
+  //{Fetch data by user id \}
   return (
     <div>
       <div className="flex flex-col w-full">
-        <div className="flex py-5 items-center justify-between">
+        <div className="flex items-center justify-between py-5">
           <div className="flex flex-col w-full">
             <h2 className="pt-1">{"Shubham"}</h2>
             <span>{"Shubhamjaiswalx"}</span>
@@ -18,7 +25,7 @@ const ProfileIdPage = () => {
         <div className="flex items-center justify-between">
           <div>12 Followers</div>
           <div className="pl-3">
-            <InstagramIcon className="h-4 w-4" />
+            <InstagramIcon className="w-4 h-4" />
           </div>
         </div>
       </div>
