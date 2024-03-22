@@ -15,7 +15,7 @@ const ThreadCommentsItems = () => {
           id={post._id}
           authorName={post.authorName}
           content={post.content}
-          imageUrl={post.imageUrl}
+          imageUrl={post.imageUrl ?? ""}
           createdAt={post._creationTime}
         />
       ))}

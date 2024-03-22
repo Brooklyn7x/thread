@@ -1,5 +1,3 @@
-"use client";
-
 import { Button } from "@/components/ui/button";
 import {
   Dialog,
@@ -8,17 +6,27 @@ import {
   DialogTrigger,
 } from "@/components/ui/dialog";
 import ThreadEditForm from "./thread-edit-form";
-
-interface CreatePostProps {
-  children: React.ReactNode;
+import { useQuery } from "convex/react";
+import { api } from "@/convex/_generated/api";
+import { Id } from "@/convex/_generated/dataModel";
+import { useState } from "react";
+interface ThreadProps {
+  id: Id<"threads">;
 }
+const ThreadEditDailog = ({ threadId }: { threadId: Id<"threads"> }) => {
+  const [open, setOpen] = useState(false);
+  const threadData = useQuery(api.threads.getThread, { threadId });
+  const handleClose = () => {
+    setOpen(false);
+  };
 
-const ThreadEditDailog = ({ children }: CreatePostProps) => {
   return (
-    <Dialog>
-      <DialogTrigger asChild>{children}</DialogTrigger>
+    <Dialog open={open} onOpenChange={setOpen}>
+      <DialogTrigger asChild className="w-full">
+        <Button variant={"ghost"}>Edit</Button>
+      </DialogTrigger>
       <DialogContent>
-        <ThreadEditForm />
+        <ThreadEditForm thread={threadData} handleClose={handleClose} />
       </DialogContent>
     </Dialog>
   );

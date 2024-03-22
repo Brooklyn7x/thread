@@ -26,17 +26,16 @@ export const ThreadCard = ({
   imageUrl,
 }: PostCardProps) => {
   const createdAtLabel = formatTime(createdAt);
-
   return (
     <Link href={`/thread/${id}`}>
       <div className="flex w-full h-auto py-3">
         <div className="px-2 pt-2">
           <Image
-            src="/as.jpeg"
+            src="/t2.jpeg"
             alt="User_image"
             width={36}
             height={36}
-            className="border rounded-full "
+            className="border rounded-full"
           />
           <div className="flex items-start justify-center h-full py-2">
             <div className="border-[1px] border-[#333638] h-[90%]" />
@@ -52,8 +51,9 @@ export const ThreadCard = ({
               <p className="pr-1 text-sm text-muted-foreground">
                 {createdAtLabel}
               </p>
-              {/* <ThreadActionButton id={id} /> */}
-              <ThreadOtherAction />
+              <ThreadActionButton id={id} />
+              
+              {/* <ThreadOtherAction /> */}
             </div>
           </div>
           <p className="pb-2 text-sm">{content}</p>

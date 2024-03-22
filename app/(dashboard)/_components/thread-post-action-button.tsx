@@ -15,13 +15,17 @@ import { Ellipsis } from "lucide-react";
 import Link from "next/link";
 import { toast } from "sonner";
 import ThreadEditDailog from "../thread/_componets/thread-edit-dailog";
+import { useQuery } from "convex/react";
 
 interface ActionButtonProps {
   id: Id<"threads">;
 }
 
 const ThreadPostActionButton = ({ id }: ActionButtonProps) => {
+  const threadId = id;
   const { mutate, pending } = useApiMutation(api.thread.remove);
+  const threadData = useQuery(api.threads.getThread, { threadId });
+  console.log(threadData, "thread");
 
   const onDelete = () => {
     mutate({ id })
@@ -36,9 +40,12 @@ const ThreadPostActionButton = ({ id }: ActionButtonProps) => {
         </Button>
       </DropdownMenuTrigger>
       <DropdownMenuContent side="bottom" onClick={(e) => e.stopPropagation()}>
-        <ThreadEditDailog>
+        {/* <ThreadEditDailog >
           <Button>Edit</Button>
-        </ThreadEditDailog>
+        </ThreadEditDailog> */}
+
+        <ThreadEditDailog threadId={id} />
+
         <ConfirmModal
           header="Delete Thread ? "
           description="Are you sure ?"

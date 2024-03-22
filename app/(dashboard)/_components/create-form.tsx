@@ -1,27 +1,16 @@
 "use client";
 
 import { Button } from "@/components/ui/button";
-import {
-  Form,
-  FormControl,
-  FormDescription,
-  FormField,
-  FormItem,
-  FormLabel,
-  FormMessage,
-} from "@/components/ui/form";
+import { Form, FormControl, FormField, FormItem } from "@/components/ui/form";
 import { Input } from "@/components/ui/input";
 import { api } from "@/convex/_generated/api";
 import { useApiMutation } from "@/hooks/use-api-mutation";
 import { zodResolver } from "@hookform/resolvers/zod";
-import axios from "axios";
-import { error } from "console";
 import { useRouter } from "next/navigation";
 import { useForm } from "react-hook-form";
 import { z } from "zod";
 import { toast } from "sonner";
 import { Avatar, AvatarImage } from "@/components/ui/avatar";
-import { Gift, Image, SquarePen } from "lucide-react";
 
 const formSchema = z.object({
   //fix form zod
@@ -115,7 +104,6 @@ const CreateForm = ({ handleClose }: CreateFormProps) => {
                       <FormControl>
                         <Input placeholder="Content" {...field} />
                       </FormControl>
-                      <FormMessage />
                     </FormItem>
                   )}
                 />
@@ -128,7 +116,6 @@ const CreateForm = ({ handleClose }: CreateFormProps) => {
                       <FormControl>
                         <Input {...field} placeholder="Image" />
                       </FormControl>
-                      <FormMessage />
                     </FormItem>
                   )}
                 />

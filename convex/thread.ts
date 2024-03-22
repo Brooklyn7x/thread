@@ -35,21 +35,21 @@ export const remove = mutation({
   },
 });
 
-export const update = mutation({
+export const updateThread = mutation({
   args: {
     id: v.id("threads"),
     content: v.string(),
+    image: v.string(),
   },
   handler: async (ctx, args) => {
     const identity = await ctx.auth.getUserIdentity();
 
     if (!identity) throw new Error("Unauthrozied");
 
-    const edit = await ctx.db.patch(args.id, {
+    await ctx.db.patch(args.id, {
       content: args.content,
+      imageUrl: args.image,
     });
-
-    return edit;
   },
 });
 
@@ -63,8 +63,14 @@ export const get = query({
     return threads;
   },
 });
+export const getThread = query({
+  args: {
+    id: v.id("threads"),
+  },
+  handler: async (ctx, args) => {
+    const threads = ctx.db.get(args.id);
+    return threads;
+  },
+});
 
 // export const create = mutation({ args: {}, handler: async (ctx, args) => {} });
-
-
-

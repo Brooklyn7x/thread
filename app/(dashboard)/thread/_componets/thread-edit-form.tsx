@@ -14,50 +14,45 @@ import { Input } from "@/components/ui/input";
 import { api } from "@/convex/_generated/api";
 import { useApiMutation } from "@/hooks/use-api-mutation";
 import { zodResolver } from "@hookform/resolvers/zod";
-import axios from "axios";
-import { error } from "console";
 import { useRouter } from "next/navigation";
 import { useForm } from "react-hook-form";
 import { z } from "zod";
 import { toast } from "sonner";
 import { Avatar, AvatarImage } from "@/components/ui/avatar";
-import { Gift, Image } from "lucide-react";
 
 const formSchema = z.object({
-  threads: z.string().min(2, {
-    message: "Username must be at least 2 characters.",
-  }),
-  title: z.string().min(2, {
-    message: "Username must be at least 2 characters.",
-  }),
-  // image: z.string().min(2, {
-  //   message: "Username must be at least 2 characters.",
-  // }),
+  threads: z.string(),
+  image: z.string(),
 });
 
-const ThreadEditForm = () => {
-  const router = useRouter();
+interface Props {
+  thread: any;
+  handleClose: () => void;
+}
 
-  const { mutate, pending } = useApiMutation(api.thread.create);
+const ThreadEditForm = ({ thread, handleClose }: Props) => {
+  const threadId = thread._id;
+  const router = useRouter();
+  const { mutate, pending } = useApiMutation(api.thread.updateThread);
 
   const form = useForm<z.infer<typeof formSchema>>({
     resolver: zodResolver(formSchema),
     defaultValues: {
-      title: "",
-      threads: "",
-      // image: "",
+      threads: thread.content,
+      image: thread.imageUrl,
     },
   });
 
   const onSubmit = (values: z.infer<typeof formSchema>) => {
     mutate({
-      title: values.title,
+      id: threadId,
       content: values.threads,
-      // imageUrl: values.image,
+      image: values.image,
     })
-      .then((id) => {
-        toast.success("Thread created.");
-        router.push("/");
+      .then(() => {
+        toast.success("Edited.");
+        handleClose();
+        router.push(`/thread/${threadId}`);
       })
       .catch(() => toast.error("Something went wrong."));
   };
@@ -79,21 +74,7 @@ const ThreadEditForm = () => {
                   shubhamjaiswalx
                 </span>
               </div>
-              <FormField
-                control={form.control}
-                name="title"
-                render={({ field }) => (
-                  <FormItem>
-                    <FormControl>
-                      <Input
-                        placeholder="Start a thread..."
-                        {...field}
-                        className=""
-                      />
-                    </FormControl>
-                  </FormItem>
-                )}
-              />
+
               <FormField
                 control={form.control}
                 name="threads"
@@ -101,45 +82,33 @@ const ThreadEditForm = () => {
                   <FormItem>
                     <FormLabel>Content</FormLabel>
                     <FormControl>
-                      <Input placeholder="Start a threads...." {...field} />
+                      <Input placeholder="thread" {...field} />
                     </FormControl>
                     <FormMessage />
                   </FormItem>
                 )}
               />
-              {/* <FormField
+              <FormField
                 control={form.control}
                 name="image"
                 render={({ field }) => (
                   <FormItem>
                     <FormLabel>Image</FormLabel>
                     <FormControl>
-                      <Input {...field} />
+                      <Input {...field} placeholder="image" />
                     </FormControl>
                     <FormDescription>Attach File.</FormDescription>
                     <FormMessage />
                   </FormItem>
                 )}
-              /> */}
+              />
             </div>
           </div>
         </div>
 
-        {/* <FormField
-          control={form.control}
-          name="caption"
-          render={({ field }) => (
-            <FormItem>
-              <FormLabel>Captions</FormLabel>
-              <FormControl>
-                <Input placeholder="caption" {...field} />
-              </FormControl>
-              <FormDescription>#</FormDescription>
-              <FormMessage />
-            </FormItem>
-          )}
-        /> */}
-        <Button type="submit">Submit</Button>
+        <Button type="submit" disabled={pending}>
+          Submit
+        </Button>
       </form>
     </Form>
   );
