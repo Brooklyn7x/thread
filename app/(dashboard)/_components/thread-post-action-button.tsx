@@ -20,7 +20,7 @@ interface ActionButtonProps {
   id: Id<"threads">;
 }
 
-const ThreadActionButton = ({ id }: ActionButtonProps) => {
+const ThreadPostActionButton = ({ id }: ActionButtonProps) => {
   const { mutate, pending } = useApiMutation(api.thread.remove);
 
   const onDelete = () => {
@@ -37,9 +37,7 @@ const ThreadActionButton = ({ id }: ActionButtonProps) => {
       </DropdownMenuTrigger>
       <DropdownMenuContent side="bottom" onClick={(e) => e.stopPropagation()}>
         <ThreadEditDailog>
-          <Button className="w-full" variant={"ghost"}>
-            Edit
-          </Button>
+          <Button>Edit</Button>
         </ThreadEditDailog>
         <ConfirmModal
           header="Delete Thread ? "
@@ -56,4 +54,4 @@ const ThreadActionButton = ({ id }: ActionButtonProps) => {
   );
 };
 
-export default ThreadActionButton;
+export default ThreadPostActionButton;

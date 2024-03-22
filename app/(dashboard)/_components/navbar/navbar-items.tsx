@@ -8,7 +8,8 @@ import {
   UserRound,
 } from "lucide-react";
 import Link from "next/link";
-import CreatePost from "../create-post";
+import CreatePost from "../create-post-dailog";
+import CreateForm from "../create-form";
 
 const NavbarItems = () => {
   return (

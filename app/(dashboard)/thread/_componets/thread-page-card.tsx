@@ -1,18 +1,14 @@
-"use client";
-
 import Image from "next/image";
 import Link from "next/link";
 import { formatDistanceToNow } from "date-fns";
 import { Id } from "@/convex/_generated/dataModel";
-import ThreadActionButton from "./action-button";
-import ThreadButton from "./navbar/thread-buttoon";
-import { ThreadOtherAction } from "../thread/_componets/thread-other-button";
+import { ThreadOtherAction } from "./thread-other-button";
+import ThreadButton from "../../_components/navbar/thread-buttoon";
 import { formatTime } from "@/lib/utils";
 
 interface PostCardProps {
   id: string;
   authorName: string;
-  // tags: string[];
   createdAt: number;
   content: string;
   imageUrl?: string | undefined;
@@ -26,12 +22,12 @@ export const ThreadCard = ({
   imageUrl,
 }: PostCardProps) => {
   const createdAtLabel = formatTime(createdAt);
-
   return (
-    <Link href={`/thread/${id}`}>
+    <>
       <div className="flex w-full h-auto py-3">
         <div className="px-2 pt-2">
           <Image
+            //change Image Url here
             src="/as.jpeg"
             alt="User_image"
             width={36}
@@ -73,7 +69,7 @@ export const ThreadCard = ({
         </div>
       </div>
       <div className="border-[0.1px] border-[#333638]" />
-    </Link>
+    </>
   );
 };
 

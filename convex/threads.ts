@@ -1,15 +1,28 @@
 import { v } from "convex/values";
 import { mutation, query } from "./_generated/server";
+import { threadId } from "worker_threads";
 
 export const get = query({
   handler: async (ctx) => {
     const threads = ctx.db.query("threads").order("desc").collect();
-
     return threads;
   },
 });
 
-export const get_thread_by_id = query({
+export const getThread = query({
+  args: { threadId: v.id("threads") },
+  handler: async (ctx, args) => {
+    const identity = await ctx.auth.getUserIdentity();
+    if (!identity) throw new Error("Unauthrozied");
+
+    const threads = await ctx.db.get(args.threadId);
+    if (!threads) return null;
+    
+    return { ...threads };
+  },
+});
+
+export const get_thread_by_user_therad_id = query({
   args: { threadId: v.id("threads") },
   handler: async (ctx, args) => {
     const identity = await ctx.auth.getUserIdentity();
