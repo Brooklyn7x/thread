@@ -10,8 +10,10 @@ import {
 import Link from "next/link";
 import CreatePost from "../create-post-dailog";
 import CreateForm from "../create-form";
+import { auth, currentUser, useAuth } from "@clerk/nextjs";
 
-const NavbarItems = () => {
+const NavbarItems = async() => {
+  const user = await auth();
   return (
     <div className="flex items-center justify-between w-full h-full px-4 mt-1">
       <Button asChild variant={"ghost"} className="h-full" size={"lg"}>
@@ -35,7 +37,7 @@ const NavbarItems = () => {
         </Link>
       </Button>
       <Button asChild variant={"ghost"} className="h-full" size={"lg"}>
-        <Link href={"/profile"}>
+        <Link href={`/profile/${user.userId}`}>
           <UserRound />
         </Link>
       </Button>

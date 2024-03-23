@@ -1,11 +1,25 @@
 import { v } from "convex/values";
 import { mutation, query } from "./_generated/server";
-import { threadId } from "worker_threads";
 
 export const get = query({
   handler: async (ctx) => {
     const threads = ctx.db.query("threads").order("desc").collect();
     return threads;
+  },
+});
+
+export const getSearch = query({
+  args: { name: v.string() },
+  handler: async (ctx, args) => {
+    const name = args.name as string;
+    const identity = await ctx.auth.getUserIdentity();
+    if (!identity) throw new Error("Unauthrozied");
+    const searchData = ctx.db
+      .query("users")
+      .withSearchIndex("search_user", (q) => q.search("name", name))
+      .collect();
+
+    return searchData;
   },
 });
 
@@ -17,18 +31,22 @@ export const getThread = query({
 
     const threads = await ctx.db.get(args.threadId);
     if (!threads) return null;
-    
+
     return { ...threads };
   },
 });
 
-export const get_thread_by_user_therad_id = query({
-  args: { threadId: v.id("threads") },
+export const getThreadByUser = query({
+  args: { authorId: v.string() },
   handler: async (ctx, args) => {
     const identity = await ctx.auth.getUserIdentity();
     if (!identity) throw new Error("Unauthrozied");
-    const threads = ctx.db.get(args.threadId);
-    return threads;
+    const thread = await ctx.db
+      .query("threads")
+      .withIndex("by_author", (q) => q.eq("authorId", args.authorId))
+      .collect();
+
+    return thread;
   },
 });
 

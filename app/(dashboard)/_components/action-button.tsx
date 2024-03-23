@@ -34,6 +34,7 @@ const ThreadActionButton = ({ id }: ActionButtonProps) => {
       })
       .catch(() => toast.error("Threads failed to delete"));
   };
+  
   return (
     <DropdownMenu>
       <DropdownMenuTrigger>

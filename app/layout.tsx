@@ -27,7 +27,7 @@ export default function RootLayout({
             enableSystem
             disableTransitionOnChange
           >
-            <Toaster />
+            <Toaster theme="light" position="bottom-center"/>
             {children}
           </ThemeProvider>
         </ConvexClientProvider>

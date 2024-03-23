@@ -7,24 +7,42 @@ export function cn(...inputs: ClassValue[]) {
 
 export const formatTime = (timestamp: number): string => {
   const currentDate = new Date();
-  const postDate = new Date(timestamp * 1000);
+  const postDate = new Date(timestamp);
 
-  const timeDifferenceInMinutes = Math.floor(
-    (currentDate.getTime() - postDate.getTime()) / 60000
+  const timeDifferenceInMilliseconds =
+    currentDate.getTime() - postDate.getTime();
+
+  // Handle negative timestamps
+  if (timeDifferenceInMilliseconds < 0) {
+    return "Just now";
+  }
+
+  // Convert milliseconds to seconds
+  const timeDifferenceInSeconds = Math.floor(
+    timeDifferenceInMilliseconds / 1000
   );
 
-  const hours = Math.floor(timeDifferenceInMinutes / 60);
-  const minutes = Math.abs(timeDifferenceInMinutes % 60);
+  // Define time intervals in seconds
+  const minute = 60;
+  const hour = minute * 60;
+  const day = hour * 24;
+  const week = day * 7;
 
-  if (hours > 0) {
-    if (minutes > 0) {
-      return `${hours} ${hours === 1 ? "hour" : "hours"} ${minutes} ${
-        minutes === 1 ? "minute" : "minutes"
-      } ago`;
-    } else {
-      return `${hours} ${hours === 1 ? "hour" : "hours"} ago`;
-    }
+  if (timeDifferenceInSeconds < minute) {
+    return `${timeDifferenceInSeconds} second${
+      timeDifferenceInSeconds !== 1 ? "s" : ""
+    } ago`;
+  } else if (timeDifferenceInSeconds < hour) {
+    const minutes = Math.floor(timeDifferenceInSeconds / minute);
+    return `${minutes} minute${minutes !== 1 ? "s" : ""} ago`;
+  } else if (timeDifferenceInSeconds < day) {
+    const hours = Math.floor(timeDifferenceInSeconds / hour);
+    return `${hours} hour${hours !== 1 ? "s" : ""} ago`;
+  } else if (timeDifferenceInSeconds < week) {
+    const days = Math.floor(timeDifferenceInSeconds / day);
+    return `${days} day${days !== 1 ? "s" : ""} ago`;
   } else {
-    return `${minutes} ${minutes === 1 ? "minute" : "minutes"} ago`;
+    // For longer intervals, return the date
+    return postDate.toLocaleDateString();
   }
 };

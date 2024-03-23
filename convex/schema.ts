@@ -2,6 +2,14 @@ import { v } from "convex/values";
 import { defineSchema, defineTable } from "convex/server";
 
 export default defineSchema({
+  users: defineTable({
+    tokenIdentifier: v.string(),
+    name: v.optional(v.string()),
+    image: v.optional(v.string()),
+  })
+    .index("by_tokenIdentifier", ["tokenIdentifier"])
+    .searchIndex("search_user", { searchField: "name" }),
+
   threads: defineTable({
     authorId: v.string(),
     authorName: v.string(),

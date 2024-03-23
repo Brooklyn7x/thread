@@ -20,6 +20,8 @@ const ActionButton = () => {
       </PopoverTrigger>
       <PopoverContent className="w-60">
         <div className="flex flex-col w-full space-y-1">
+          <ModeToggle />
+
           <Button className="w-full" asChild variant={"ghost"}>
             <Link href={"/setting"}>Settings</Link>
           </Button>
@@ -32,8 +34,6 @@ const ActionButton = () => {
           <Button className="w-full" asChild variant={"ghost"}>
             <SignOutButton />
           </Button>
-
-          <ModeToggle />
         </div>
       </PopoverContent>
     </Popover>

@@ -8,10 +8,12 @@ import ThreadActionButton from "./action-button";
 import ThreadButton from "./navbar/thread-buttoon";
 import { ThreadOtherAction } from "../thread/_componets/thread-other-button";
 import { formatTime } from "@/lib/utils";
+import { useSession } from "@clerk/nextjs";
 
 interface PostCardProps {
   id: string;
   authorName: string;
+  authorId: string;
   // tags: string[];
   createdAt: number;
   content: string;
@@ -24,8 +26,10 @@ export const ThreadCard = ({
   authorName,
   content,
   imageUrl,
+  authorId,
 }: PostCardProps) => {
   const createdAtLabel = formatTime(createdAt);
+  const user = useSession();
   return (
     <Link href={`/thread/${id}`}>
       <div className="flex w-full h-auto py-3">
@@ -37,9 +41,9 @@ export const ThreadCard = ({
             height={36}
             className="border rounded-full"
           />
-          <div className="flex items-start justify-center h-full py-2">
-            <div className="border-[1px] border-[#333638] h-[90%]" />
-          </div>
+          {/* <div className="flex items-start justify-center h-full py-2">
+            <div className="border-[1px] border-[#333638]" />
+          </div> */}
         </div>
 
         <div className="flex flex-col flex-1 w-full px-2">
@@ -51,8 +55,15 @@ export const ThreadCard = ({
               <p className="pr-1 text-sm text-muted-foreground">
                 {createdAtLabel}
               </p>
-              <ThreadActionButton id={id} />
-              
+
+              {user.session?.id === authorId ? (
+                <ThreadActionButton id={id} />
+              ) : (
+                <ThreadOtherAction />
+              )}
+
+              {/* <ThreadActionButton id={id} /> */}
+
               {/* <ThreadOtherAction /> */}
             </div>
           </div>

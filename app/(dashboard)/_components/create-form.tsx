@@ -119,6 +119,9 @@ const CreateForm = ({ handleClose }: CreateFormProps) => {
                     </FormItem>
                   )}
                 />
+                <Button type="submit" variant={"secondary"}>
+                  Submit
+                </Button>
               </div>
             </div>
           </div>
@@ -138,7 +141,6 @@ const CreateForm = ({ handleClose }: CreateFormProps) => {
                   </FormItem>
                 )}
               /> */}
-        <Button type="submit">Submit</Button>
       </form>
     </Form>
   );

@@ -14,10 +14,13 @@ import type {
   FilterApi,
   FunctionReference,
 } from "convex/server";
+import type * as clerk from "../clerk.js";
 import type * as comments from "../comments.js";
+import type * as http from "../http.js";
 import type * as like from "../like.js";
 import type * as thread from "../thread.js";
 import type * as threads from "../threads.js";
+import type * as users from "../users.js";
 
 /**
  * A utility for referencing Convex functions in your app's API.
@@ -28,10 +31,13 @@ import type * as threads from "../threads.js";
  * ```
  */
 declare const fullApi: ApiFromModules<{
+  clerk: typeof clerk;
   comments: typeof comments;
+  http: typeof http;
   like: typeof like;
   thread: typeof thread;
   threads: typeof threads;
+  users: typeof users;
 }>;
 export declare const api: FilterApi<
   typeof fullApi,

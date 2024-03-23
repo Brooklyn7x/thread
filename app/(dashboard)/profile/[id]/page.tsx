@@ -1,5 +1,10 @@
 import { InstagramIcon } from "lucide-react";
 import Image from "next/image";
+import { ProfileHeader } from "../_components/profile-header";
+import { FollowerCount } from "../_components/profile-follower";
+import { EditProfile } from "../_components/profile-edit";
+import { Button } from "@/components/ui/button";
+import { ProfileTabs } from "../_components/profile-tabs";
 
 type Props = {
   params: {
@@ -8,27 +13,33 @@ type Props = {
 };
 
 const ProfileIdPage = ({ params }: Props) => {
-  //{Fetch data by user id \}
+  const authorId = params.id;
+//userData APi
+
   return (
     <div>
       <div className="flex flex-col w-full">
-        <div className="flex items-center justify-between py-5">
-          <div className="flex flex-col w-full">
-            <h2 className="pt-1">{"Shubham"}</h2>
-            <span>{"Shubhamjaiswalx"}</span>
-          </div>
-          <div>
-            <Image src="/as.jepg" height={50} width={50} alt="profile-image" />
-          </div>
-        </div>
-        <span className="w-full">{"🚀"}</span>
-        <div className="flex items-center justify-between">
-          <div>12 Followers</div>
-          <div className="pl-3">
-            <InstagramIcon className="w-4 h-4" />
-          </div>
-        </div>
+        <ProfileHeader
+          displayName={"shubhamjaiswalx"}
+          imageUrl="/1.svg"
+          username="shubhamjaiswalx"
+          bio="✈️🚀☑️"
+        />
+
+        <FollowerCount followerCount={120} />
       </div>
+      <div className="w-full py-3">
+        <EditProfile bio="✈️🚀☑️" name="shubhamjaiswalx">
+          <Button
+            className="w-full px-4 dark:text-white h-34 bg-background rounded-xl"
+            variant={"outline"}
+          >
+            Edit Profile
+          </Button>
+        </EditProfile>
+      </div>
+      
+      <ProfileTabs authorId={authorId} />
     </div>
   );
 };

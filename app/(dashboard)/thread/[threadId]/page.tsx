@@ -28,7 +28,9 @@ const PostIdPage = () => {
         imageUrl={data?.imageUrl}
       />
 
-      <ThreadCommentsItems />
+      <div className="w-full">
+        <ThreadCommentsItems />
+      </div>
     </div>
   );
 };

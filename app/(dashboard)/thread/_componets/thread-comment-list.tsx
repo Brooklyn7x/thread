@@ -8,7 +8,7 @@ import ThreadCommentCard from "./thread-comment-card";
 const ThreadCommentsItems = () => {
   const data = useQuery(api.threads.get);
   return (
-    <div className="w-full">
+    <div className="w-full h-full">
       {data?.map((post) => (
         <ThreadCommentCard
           key={post._id}

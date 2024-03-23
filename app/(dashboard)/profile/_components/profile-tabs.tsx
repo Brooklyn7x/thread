@@ -3,8 +3,13 @@ import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
 import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
 import PostItems from "../../_components/post-item";
+import ProfilePost from "./profile-post";
 
-export function ProfileTabs() {
+interface Props {
+  authorId: string;
+}
+
+export function ProfileTabs({ authorId }: Props) {
   return (
     <Tabs defaultValue="threads" className="w-full">
       <TabsList className="grid grid-cols-3">
@@ -13,14 +18,12 @@ export function ProfileTabs() {
         <TabsTrigger value="reposts">Reposts</TabsTrigger>
       </TabsList>
       <TabsContent value="threads">
-        <PostItems />
-      </TabsContent> 
+        <ProfilePost authorId={authorId} />
+      </TabsContent>
       <TabsContent value="replies">
         <PostItems />
       </TabsContent>
-      <TabsContent value="reposts">
-        {/* <PostItems /> */}
-      </TabsContent>
+      <TabsContent value="reposts">{/* <PostItems /> */}</TabsContent>
     </Tabs>
   );
 }
