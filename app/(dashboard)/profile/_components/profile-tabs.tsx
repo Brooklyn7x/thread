@@ -6,10 +6,10 @@ import PostItems from "../../_components/post-item";
 import ProfilePost from "./profile-post";
 
 interface Props {
-  authorId: string;
+  userId: string;
 }
 
-export function ProfileTabs({ authorId }: Props) {
+export function ProfileTabs({ userId }: Props) {
   return (
     <Tabs defaultValue="threads" className="w-full">
       <TabsList className="grid grid-cols-3">
@@ -18,10 +18,10 @@ export function ProfileTabs({ authorId }: Props) {
         <TabsTrigger value="reposts">Reposts</TabsTrigger>
       </TabsList>
       <TabsContent value="threads">
-        <ProfilePost authorId={authorId} />
+        <ProfilePost userId={userId} />
       </TabsContent>
       <TabsContent value="replies">
-        <PostItems />
+        {/* <PostItems /> */}
       </TabsContent>
       <TabsContent value="reposts">{/* <PostItems /> */}</TabsContent>
     </Tabs>

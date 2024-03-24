@@ -29,6 +29,8 @@ http.route({
               result.data.last_name ?? ""
             }`,
             image: result.data.image_url,
+            username: result.data.username ?? "",
+            userId: result.data.id,
           });
           break;
         case "user.updated":
@@ -38,6 +40,7 @@ http.route({
               result.data.last_name ?? ""
             }`,
             image: result.data.image_url,
+            username: result.data.username ?? "",
           });
           break;
       }

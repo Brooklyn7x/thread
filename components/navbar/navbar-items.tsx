@@ -1,18 +1,11 @@
 import { Button } from "@/components/ui/button";
-import {
-  CreditCard,
-  Heart,
-  HomeIcon,
-  Search,
-  SquarePen,
-  UserRound,
-} from "lucide-react";
+import { Heart, HomeIcon, Search, SquarePen, UserRound } from "lucide-react";
 import Link from "next/link";
-import CreatePost from "../create-post-dailog";
-import CreateForm from "../create-form";
-import { auth, currentUser, useAuth } from "@clerk/nextjs";
+import CreatePost from "../../app/(dashboard)/_components/create-post-dailog";
 
-const NavbarItems = async() => {
+import { auth } from "@clerk/nextjs";
+
+const NavbarItems = async () => {
   const user = await auth();
   return (
     <div className="flex items-center justify-between w-full h-full px-4 mt-1">

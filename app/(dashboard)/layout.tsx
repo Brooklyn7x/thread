@@ -1,6 +1,6 @@
 import React from "react";
-import Navbar from "./_components/navbar";
-import Mobilebar from "./_components/mobilebar";
+import Navbar from "../../components/navbar/navbar";
+import Mobilebar from "../../components/navbar/mobilebar/mobilebar";
 
 const DashBoardLayout = ({ children }: { children: React.ReactNode }) => {
   return (

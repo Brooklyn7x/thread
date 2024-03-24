@@ -2,34 +2,39 @@ import Image from "next/image";
 import Link from "next/link";
 
 import { ThreadOtherAction } from "./thread-other-button";
-import ThreadButton from "../../_components/navbar/thread-buttoon";
+import ThreadButton from "../../_components/thread-buttoon";
 import { formatTime } from "@/lib/utils";
-import { useSession } from "@clerk/nextjs";
+import { useQuery } from "convex/react";
+import { api } from "@/convex/_generated/api";
+import { useAuth } from "@clerk/nextjs";
+import ThreadActionButton from "../../_components/action-button";
 
 interface PostCardProps {
   id: string;
-  authorName: string;
   createdAt: number;
   content: string;
   imageUrl?: string | undefined;
+  userId: string;
 }
 
 export const ThreadCard = ({
   id,
   createdAt,
-  authorName,
   content,
   imageUrl,
+  userId,
 }: PostCardProps) => {
+  const { userId: currentUser } = useAuth();
   const createdAtLabel = formatTime(createdAt);
-  const user = useSession();
+  const userData = useQuery(api.threadUser.getByuser, { userId });
+  if (!userData) return null;
+
   return (
     <div>
       <div className="flex w-full h-auto py-3">
         <div className="px-2 pt-2">
           <Image
-            //change Image Url here
-            src={"/t1.jpeg"}
+            src={userData[0].image ?? ""}
             alt="User_image"
             width={36}
             height={36}
@@ -43,14 +48,19 @@ export const ThreadCard = ({
         <div className="flex flex-col flex-1 w-full px-2">
           <div className="flex items-center justify-between">
             <Link href={`/profile/${id}`}>
-              <span>{authorName}</span>
+              <span>{userData[0].username}</span>
             </Link>
             <div className="flex items-center">
               <p className="pr-1 text-sm text-muted-foreground">
                 {createdAtLabel}
               </p>
+
+              {userId === currentUser ? (
+                <ThreadActionButton id={id} />
+              ) : (
+                <ThreadOtherAction />
+              )}
               {/* <ThreadActionButton id={id} /> */}
-              <ThreadOtherAction />
             </div>
           </div>
           <p className="pb-2 text-sm">{content}</p>

@@ -7,7 +7,7 @@ import ThreadCard from "./thread-card";
 import { Loader } from "lucide-react";
 
 const PostItems = () => {
-  const data = useQuery(api.threads.get);
+  const data = useQuery(api.threads.getAll);
 
   if (!data)
     return (
@@ -22,11 +22,10 @@ const PostItems = () => {
         <ThreadCard
           key={post._id}
           id={post._id}
-          author={post.authorId}
-          authorName={post.authorName}
           content={post.content}
           imageUrl={post.imageUrl}
           createdAt={post._creationTime}
+          userId={post.userId}
         />
       ))}
     </div>

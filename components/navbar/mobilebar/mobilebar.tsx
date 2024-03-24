@@ -1,4 +1,4 @@
-import NavbarItems from "./navbar/navbar-items";
+import NavbarItems from "../navbar-items";
 
 const Mobilebar = () => {
   return (

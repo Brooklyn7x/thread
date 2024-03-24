@@ -1,5 +1,5 @@
 import Image from "next/image";
-import PostActionButton from "../../_components/navbar/thread-buttoon";
+import PostActionButton from "../../_components/thread-buttoon";
 import ActionButton from "../../_components/action-button";
 import Link from "next/link";
 import ThreadPostActionButton from "../../_components/thread-post-action-button";

@@ -10,12 +10,11 @@ import { useRouter } from "next/navigation";
 import { useForm } from "react-hook-form";
 import { z } from "zod";
 import { toast } from "sonner";
-import { Avatar, AvatarImage } from "@/components/ui/avatar";
+import { Avatar, AvatarFallback, AvatarImage } from "@/components/ui/avatar";
 
 const formSchema = z.object({
   //fix form zod
-  threads: z.string(),
-  title: z.string(),
+  content: z.string(),
   image: z.string(),
 });
 
@@ -26,21 +25,19 @@ interface CreateFormProps {
 const CreateForm = ({ handleClose }: CreateFormProps) => {
   const router = useRouter();
 
-  const { mutate, pending } = useApiMutation(api.thread.create);
+  const { mutate, pending } = useApiMutation(api.thread.createThread);
 
   const form = useForm<z.infer<typeof formSchema>>({
     resolver: zodResolver(formSchema),
     defaultValues: {
-      title: "",
-      threads: "",
+      content: "",
       image: "",
     },
   });
 
   const onSubmit = (values: z.infer<typeof formSchema>) => {
     mutate({
-      title: values.title,
-      content: values.threads,
+      content: values.content,
       imageUrl: values.image,
     })
       .then(() => {
@@ -57,7 +54,8 @@ const CreateForm = ({ handleClose }: CreateFormProps) => {
           <div className="flex w-full px-6 py-4">
             <div className="pr-2 mt-1">
               <Avatar>
-                <AvatarImage src="/as.jpeg" />
+                <AvatarImage src="/l.jpeg" />
+                <AvatarFallback>CN</AvatarFallback>
               </Avatar>
             </div>
 
@@ -85,7 +83,7 @@ const CreateForm = ({ handleClose }: CreateFormProps) => {
               </div> */}
 
               <div className="flex flex-col gap-y-2 mt-5">
-                <FormField
+                {/* <FormField
                   control={form.control}
                   name="title"
                   render={({ field }) => (
@@ -95,10 +93,10 @@ const CreateForm = ({ handleClose }: CreateFormProps) => {
                       </FormControl>
                     </FormItem>
                   )}
-                />
+                /> */}
                 <FormField
                   control={form.control}
-                  name="threads"
+                  name="content"
                   render={({ field }) => (
                     <FormItem>
                       <FormControl>

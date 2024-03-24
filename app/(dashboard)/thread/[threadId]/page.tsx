@@ -22,10 +22,10 @@ const PostIdPage = () => {
     <div className="w-full">
       <ThreadCard
         id={data?.id}
-        authorName={data?.authorName ?? ""}
         createdAt={data?._creationTime!}
         content={data?.content ?? ""}
         imageUrl={data?.imageUrl}
+        userId={data?.userId}
       />
 
       <div className="w-full">

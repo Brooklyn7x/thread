@@ -5,7 +5,7 @@ import { Button } from "@/components/ui/button";
 import { api } from "@/convex/_generated/api";
 import { Id } from "@/convex/_generated/dataModel";
 import { useApiMutation } from "@/hooks/use-api-mutation";
-import { Heart, MessageCircle, Repeat2, Send } from "lucide-react";
+import { Heart, MessageCircle, Repeat, Repeat2, Send } from "lucide-react";
 import { toast } from "sonner";
 interface ThreadActionButtonProps {
   id: Id<"threads">;
@@ -50,7 +50,7 @@ const ThreadButton = ({ id }: ThreadActionButtonProps) => {
         <MessageCircle className="w-5 h-5" />
       </button>
       <button className="p-2">
-        <Repeat2 className="w-5 h-5" />
+        <Repeat className="w-5 h-5" />
       </button>
       <button className="p-2">
         <Send className="w-5 h-5" />

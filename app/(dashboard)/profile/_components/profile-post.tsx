@@ -6,11 +6,11 @@ import { api } from "@/convex/_generated/api";
 import ThreadCard from "../../_components/thread-card";
 
 interface Props {
-  authorId: string;
+  userId: string;
 }
 
-const PostItems = ({ authorId }: Props) => {
-  const data = useQuery(api.threads.getThreadByUser, { authorId });
+const PostItems = ({ userId }: Props) => {
+  const data = useQuery(api.threads.getThreadByUser, { userId });
 
   return (
     <div className="w-full">
@@ -18,7 +18,7 @@ const PostItems = ({ authorId }: Props) => {
         <ThreadCard
           key={post._id}
           id={post._id}
-          authorName={post.authorName}
+          userId={post.userId}
           content={post.content}
           imageUrl={post.imageUrl}
           createdAt={post._creationTime}
