@@ -1,25 +1,20 @@
-"use client";
-
 import Image from "next/image";
 import Link from "next/link";
-import { formatDistanceToNow } from "date-fns";
-import { Id } from "@/convex/_generated/dataModel";
-import ThreadActionButton from "./action-button";
-import ThreadButton from "./thread-buttoon";
-import { ThreadOtherAction } from "../thread/_componets/thread-other-button";
+
+import { ThreadOtherAction } from "./thread-other-button";
+import ThreadButton from "../../_components/thread-buttoon";
 import { formatTime } from "@/lib/utils";
-import { useAuth, useSession } from "@clerk/nextjs";
-import { query } from "@/convex/_generated/server";
-import { api } from "@/convex/_generated/api";
 import { useQuery } from "convex/react";
+import { api } from "@/convex/_generated/api";
+import { useAuth } from "@clerk/nextjs";
+import ThreadActionButton from "../../_components/action-button";
 
 interface PostCardProps {
   id: string;
-  userId: Id<"users">;
   createdAt: number;
   content: string;
   imageUrl?: string | undefined;
-  // tags: string[];
+  userId: string;
 }
 
 export const ThreadCard = ({
@@ -35,7 +30,7 @@ export const ThreadCard = ({
   if (!userData) return null;
 
   return (
-    <Link href={`/thread/${id}`}>
+    <div>
       <div className="flex w-full h-auto py-3">
         <div className="px-2 pt-2">
           <Image
@@ -43,17 +38,16 @@ export const ThreadCard = ({
             alt="User_image"
             width={36}
             height={36}
-            className="border rounded-full"
+            className="border rounded-full shadow-sm"
           />
-
-          {/* <div className="flex items-start justify-center h-full py-2">
-            <div className="border-[1px] border-[#333638]" />
-          </div> */}
+          <div className="flex items-start justify-center h-full py-2">
+            <div className="border-[1px] border-[#333638] h-[90%]" />
+          </div>
         </div>
 
         <div className="flex flex-col flex-1 w-full px-2">
           <div className="flex items-center justify-between">
-            <Link href={`/profile/${userId}`}>
+            <Link href={`/profile/${id}`}>
               <span>{userData[0].username}</span>
             </Link>
             <div className="flex items-center">
@@ -66,12 +60,7 @@ export const ThreadCard = ({
               ) : (
                 <ThreadOtherAction />
               )}
-
-              {/* {userId === authorId ? (
-                <ThreadActionButton id={id} />
-              ) : (
-                <ThreadOtherAction />
-              )} */}
+              {/* <ThreadActionButton id={id} /> */}
             </div>
           </div>
           <p className="pb-2 text-sm">{content}</p>
@@ -85,14 +74,13 @@ export const ThreadCard = ({
               className="my-2 rounded-md"
             />
           )}
-
           <ThreadButton id={id} />
 
           <p className="text-muted-foreground text-md">5 replies · 5 likes</p>
         </div>
       </div>
       <div className="border-[0.1px] border-[#333638]" />
-    </Link>
+    </div>
   );
 };
 

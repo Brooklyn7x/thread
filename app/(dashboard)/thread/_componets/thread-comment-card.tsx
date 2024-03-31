@@ -1,7 +1,8 @@
 import Image from "next/image";
-import PostActionButton from "../../_components/navbar/thread-buttoon";
+import PostActionButton from "../../_components/thread-buttoon";
 import ActionButton from "../../_components/action-button";
 import Link from "next/link";
+import ThreadPostActionButton from "../../_components/thread-post-action-button";
 
 interface ThreadCommentProps {
   id: String;
@@ -36,7 +37,7 @@ const ThreadCommentsCard = ({
               <span>{author}</span>
               <div className="flex items-center">
                 <p className="text-sm">{createdAt}</p>
-                <ActionButton id={id} />
+                <ThreadPostActionButton id={id} />
               </div>
             </div>
             <p className="mt-2 text-sm text-muted-foreground">{content}</p>

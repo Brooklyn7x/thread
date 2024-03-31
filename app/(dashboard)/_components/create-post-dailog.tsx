@@ -8,23 +8,25 @@ import {
   DialogTrigger,
 } from "@/components/ui/dialog";
 import CreateForm from "./create-form";
+import { useState } from "react";
 
 interface CreatePostProps {
   children: React.ReactNode;
 }
 
-const CreatePost = ({ children }: CreatePostProps) => {
+const CreatePostDialog = ({ children }: CreatePostProps) => {
+  const [open, setOpen] = useState(false);
+  const handleClose = () => {
+    setOpen(false);
+  };
   return (
-    <Dialog>
+    <Dialog open={open} onOpenChange={setOpen}>
       <DialogTrigger asChild>{children}</DialogTrigger>
-      {/* <DialogClose></DialogClose> */}
       <DialogContent>
-        <div className="rounded-2xl">
-          <CreateForm />
-        </div>
+        <CreateForm handleClose={handleClose} />
       </DialogContent>
     </Dialog>
   );
 };
 
-export default CreatePost;
+export default CreatePostDialog;

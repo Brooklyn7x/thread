@@ -1,28 +1,25 @@
 import { v } from "convex/values";
 import { mutation, query } from "./_generated/server";
+import { getUserId } from "./utils";
 
-export const create = mutation({
+export const createThread = mutation({
   args: {
-    title: v.string(),
     content: v.string(),
     imageUrl: v.optional(v.string()),
   },
   handler: async (ctx, args) => {
-    const identity = await ctx.auth.getUserIdentity();
-
-    if (!identity) throw new Error("Unauthrozied");
+    const userId = await getUserId(ctx);
+    if (!userId) throw new Error("user not logged in");
 
     const post = await ctx.db.insert("threads", {
-      title: args.title,
-      content: args.title,
-      authorId: identity.subject,
-      authorName: identity.name!,
+      content: args.content,
       imageUrl: args.imageUrl,
+      userId,
     });
   },
 });
 
-export const remove = mutation({
+export const removeThread = mutation({
   args: {
     id: v.id("threads"),
   },
@@ -35,36 +32,35 @@ export const remove = mutation({
   },
 });
 
-export const update = mutation({
+export const updateThread = mutation({
   args: {
     id: v.id("threads"),
     content: v.string(),
+    image: v.string(),
   },
   handler: async (ctx, args) => {
     const identity = await ctx.auth.getUserIdentity();
 
     if (!identity) throw new Error("Unauthrozied");
 
-    const edit = await ctx.db.patch(args.id, {
+    await ctx.db.patch(args.id, {
       content: args.content,
+      imageUrl: args.image,
     });
-
-    return edit;
   },
 });
 
-export const get = query({
+export const getThread = query({
   args: {
     id: v.id("threads"),
   },
   handler: async (ctx, args) => {
     const threads = ctx.db.get(args.id);
-
     return threads;
   },
 });
 
+
+
+
 // export const create = mutation({ args: {}, handler: async (ctx, args) => {} });
-
-
-

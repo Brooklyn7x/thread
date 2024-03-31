@@ -6,19 +6,19 @@ import { api } from "@/convex/_generated/api";
 import ThreadCommentCard from "./thread-comment-card";
 
 const ThreadCommentsItems = () => {
-  const data = useQuery(api.threads.get);
+  // const data = useQuery(api.threads.get);
   return (
-    <div className="w-full">
-      {data?.map((post) => (
+    <div className="w-full h-full">
+      {/* {data?.map((post) => (
         <ThreadCommentCard
           key={post._id}
           id={post._id}
           authorName={post.authorName}
           content={post.content}
-          imageUrl={post.imageUrl}
+          imageUrl={post.imageUrl ?? ""}
           createdAt={post._creationTime}
         />
-      ))}
+      ))} */}
     </div>
   );
 };

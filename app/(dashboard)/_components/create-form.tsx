@@ -1,80 +1,61 @@
 "use client";
 
 import { Button } from "@/components/ui/button";
-import {
-  Form,
-  FormControl,
-  FormDescription,
-  FormField,
-  FormItem,
-  FormLabel,
-  FormMessage,
-} from "@/components/ui/form";
+import { Form, FormControl, FormField, FormItem } from "@/components/ui/form";
 import { Input } from "@/components/ui/input";
 import { api } from "@/convex/_generated/api";
 import { useApiMutation } from "@/hooks/use-api-mutation";
 import { zodResolver } from "@hookform/resolvers/zod";
-import axios from "axios";
-import { error } from "console";
 import { useRouter } from "next/navigation";
 import { useForm } from "react-hook-form";
 import { z } from "zod";
 import { toast } from "sonner";
-import { Avatar, AvatarImage } from "@/components/ui/avatar";
-import { Gift, Image } from "lucide-react";
+import { Avatar, AvatarFallback, AvatarImage } from "@/components/ui/avatar";
 
 const formSchema = z.object({
-  threads: z.string().min(2, {
-    message: "Username must be at least 2 characters.",
-  }),
-  title: z.string().min(2, {
-    message: "Username must be at least 2 characters.",
-  }),
-  // image: z.string().min(2, {
-  //   message: "Username must be at least 2 characters.",
-  // }),
+  //fix form zod
+  content: z.string(),
+  image: z.string(),
 });
 
-const CreateForm = () => {
+interface CreateFormProps {
+  handleClose: () => void;
+}
+
+const CreateForm = ({ handleClose }: CreateFormProps) => {
   const router = useRouter();
 
-  const { mutate, pending } = useApiMutation(api.thread.create);
+  const { mutate, pending } = useApiMutation(api.thread.createThread);
 
   const form = useForm<z.infer<typeof formSchema>>({
     resolver: zodResolver(formSchema),
     defaultValues: {
-      title: "",
-      threads: "",
-      // image: "",
+      content: "",
+      image: "",
     },
   });
 
   const onSubmit = (values: z.infer<typeof formSchema>) => {
-    // try {
-    //   await axios.post(`/api/post`, values);
-    //   router.refresh();
-    // } catch (error) {
-    //   console.log(error);
-    // }
     mutate({
-      title: values.title,
-      content: values.threads,
-      // imageUrl: values.image,
+      content: values.content,
+      imageUrl: values.image,
     })
-      .then((id) => {
+      .then(() => {
         toast.success("Thread created.");
-        router.refresh();
+        router.push("/");
+        handleClose();
       })
       .catch(() => toast.error("Something went wrong."));
   };
   return (
     <Form {...form}>
-      <form onSubmit={form.handleSubmit(onSubmit)} className="space-y-4">
+      <form onSubmit={form.handleSubmit(onSubmit)}>
         <div className="w-full sm:max-w-xl">
           <div className="flex w-full px-6 py-4">
             <div className="pr-2 mt-1">
               <Avatar>
-                <AvatarImage src="/as.jpeg" />
+                <AvatarImage src="/l.jpeg" />
+                <AvatarFallback>CN</AvatarFallback>
               </Avatar>
             </div>
 
@@ -85,82 +66,79 @@ const CreateForm = () => {
                   shubhamjaiswalx
                 </span>
               </div>
-              <div className="flex mt-1 mb-4 space-x-2 text-muted-foreground">
-                <span>
-                  <Image className="w-5 h-5" />
-                </span>
-                <span>
-                  <Gift className="w-5 h-5" />
-                </span>
-                <span>
-                  <Image className="w-5 h-5" />
-                </span>
-                <span>
-                  <Gift className="w-5 h-5" />
-                </span>
-              </div>
 
-              <FormField
-                control={form.control}
-                name="title"
-                render={({ field }) => (
-                  <FormItem>
-                    <FormControl>
-                      <Input
-                        placeholder="Start a thread..."
-                        {...field}
-                        className=""
-                      />
-                    </FormControl>
-                  </FormItem>
-                )}
-              />
-              <FormField
-                control={form.control}
-                name="threads"
-                render={({ field }) => (
-                  <FormItem>
-                    <FormLabel>Content</FormLabel>
-                    <FormControl>
-                      <Input placeholder="Start a threads...." {...field} />
-                    </FormControl>
-                    <FormMessage />
-                  </FormItem>
-                )}
-              />
-              {/* <FormField
-                control={form.control}
-                name="image"
-                render={({ field }) => (
-                  <FormItem>
-                    <FormLabel>Image</FormLabel>
-                    <FormControl>
-                      <Input {...field} />
-                    </FormControl>
-                    <FormDescription>Attach File.</FormDescription>
-                    <FormMessage />
-                  </FormItem>
-                )}
-              /> */}
+              {/* <div className="flex mt-1 mb-4 space-x-2 text-muted-foreground">
+                <span>
+                  <Image className="w-5 h-5" />
+                </span>
+                <span>
+                  <Gift className="w-5 h-5" />
+                </span>
+                <span>
+                  <Image className="w-5 h-5" />
+                </span>
+                <span>
+                  <Gift className="w-5 h-5" />
+                </span>
+              </div> */}
+
+              <div className="flex flex-col gap-y-2 mt-5">
+                {/* <FormField
+                  control={form.control}
+                  name="title"
+                  render={({ field }) => (
+                    <FormItem>
+                      <FormControl>
+                        <Input placeholder="Title" {...field} className="" />
+                      </FormControl>
+                    </FormItem>
+                  )}
+                /> */}
+                <FormField
+                  control={form.control}
+                  name="content"
+                  render={({ field }) => (
+                    <FormItem>
+                      <FormControl>
+                        <Input placeholder="Content" {...field} />
+                      </FormControl>
+                    </FormItem>
+                  )}
+                />
+
+                <FormField
+                  control={form.control}
+                  name="image"
+                  render={({ field }) => (
+                    <FormItem>
+                      <FormControl>
+                        <Input {...field} placeholder="Image" />
+                      </FormControl>
+                    </FormItem>
+                  )}
+                />
+                <Button type="submit" variant={"secondary"}>
+                  Submit
+                </Button>
+              </div>
             </div>
           </div>
         </div>
 
         {/* <FormField
-          control={form.control}
-          name="caption"
-          render={({ field }) => (
-            <FormItem>
-              <FormLabel>Captions</FormLabel>
-              <FormControl>
-                <Input placeholder="caption" {...field} />
-              </FormControl>
-              <FormDescription>#</FormDescription>
-              <FormMessage />
-            </FormItem>
-          )}
-        /> */}
-        <Button type="submit">Submit</Button>
+                control={form.control}
+                name="caption"
+                render={({ field }) => (
+                  <FormItem>
+                    <FormLabel>Captions</FormLabel>
+                    <FormControl>
+                      <Input placeholder="caption" {...field} />
+                    </FormControl>
+                    <FormDescription>#</FormDescription>
+                    <FormMessage />
+                  </FormItem>
+                )}
+              /> */}
       </form>
     </Form>
   );
