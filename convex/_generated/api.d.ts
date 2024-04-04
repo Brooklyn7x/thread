@@ -16,6 +16,8 @@ import type {
 } from "convex/server";
 import type * as clerk from "../clerk.js";
 import type * as http from "../http.js";
+import type * as like from "../like.js";
+import type * as saved from "../saved.js";
 import type * as thread from "../thread.js";
 import type * as threadUser from "../threadUser.js";
 import type * as threads from "../threads.js";
@@ -33,6 +35,8 @@ import type * as utils from "../utils.js";
 declare const fullApi: ApiFromModules<{
   clerk: typeof clerk;
   http: typeof http;
+  like: typeof like;
+  saved: typeof saved;
   thread: typeof thread;
   threadUser: typeof threadUser;
   threads: typeof threads;

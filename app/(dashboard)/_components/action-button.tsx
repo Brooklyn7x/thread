@@ -23,7 +23,7 @@ interface ActionButtonProps {
 }
 
 const ThreadActionButton = ({ id }: ActionButtonProps) => {
-  const { mutate, pending } = useApiMutation(api.thread.remove);
+  const { mutate, pending } = useApiMutation(api.thread.removeThread);
   const router = useRouter();
 
   const onDelete = () => {

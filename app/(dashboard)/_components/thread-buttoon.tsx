@@ -4,47 +4,46 @@ import { Button } from "@/components/ui/button";
 
 import { api } from "@/convex/_generated/api";
 import { Id } from "@/convex/_generated/dataModel";
+import { query } from "@/convex/_generated/server";
 import { useApiMutation } from "@/hooks/use-api-mutation";
+import { cn } from "@/lib/utils";
+import { useAuth } from "@clerk/nextjs";
+import { useQuery } from "convex/react";
 import { Heart, MessageCircle, Repeat, Repeat2, Send } from "lucide-react";
 import { toast } from "sonner";
+
 interface ThreadActionButtonProps {
   id: Id<"threads">;
 }
 
 const ThreadButton = ({ id }: ThreadActionButtonProps) => {
-  const { mutate, pending } = useApiMutation(api.like.createlike);
+  const { userId } = useAuth();
+  const { mutate: like } = useApiMutation(api.like.createlike);
+  const { mutate: unlike } = useApiMutation(api.like.removeLike);
+  const Liked = useQuery(api.like.getLike, { id });
+  if (!Liked) return null;
+  const isLiked = !!Liked[0]?._id;
 
-  const { mutate: onUnliked } = useApiMutation(api.like.remove);
-
-  const handleToggleLike = () => {};
-
-  const handlleLikeThread = (
+  const handleLikeThread = (
     event: React.MouseEvent<HTMLButtonElement, MouseEvent>
   ) => {
     event.stopPropagation();
     event.preventDefault();
-    mutate({ id })
-      .then(() => toast.success("Liked the thread"))
-      .catch(() => toast.error("Already liked"));
+    if (!isLiked) {
+      like({ id, userId })
+        .then(() => toast.success("Liked the thread"))
+        .catch(() => toast.error("try again."));
+    } else {
+      unlike({ id, userId }).then(() => {
+        toast.success("UnLiked the thread");
+      });
+    }
   };
-
-  // const handleUnLikeThread =   event: React.MouseEvent<HTMLButtonElement, MouseEvent>
-  // ) => {
-  //   event.stopPropagation();
-  //   event.preventDefault();
-  //   mutate({ id })
-  //     .then(() => toast.success("Liked the thread"))
-  //     .catch(() => toast.error("Already liked"));
-  // };
 
   return (
     <div className="flex w-full">
-      <button
-        className="p-2 hover:text-gray-500"
-        onClick={handlleLikeThread}
-        disabled={pending}
-      >
-        <Heart className="w-5 h-5 fill-red-500" />
+      <button className="p-2 hover:text-gray-600" onClick={handleLikeThread}>
+        <Heart className={cn("h-5 w-5", isLiked && "fill-red-600")} />
       </button>
       <button className="p-2">
         <MessageCircle className="w-5 h-5" />

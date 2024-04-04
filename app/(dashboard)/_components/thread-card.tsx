@@ -64,7 +64,7 @@ export const ThreadCard = ({
               {userId === currentUser ? (
                 <ThreadActionButton id={id} />
               ) : (
-                <ThreadOtherAction />
+                <ThreadOtherAction id={id}/>
               )}
 
               {/* {userId === authorId ? (

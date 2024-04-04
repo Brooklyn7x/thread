@@ -8,20 +8,20 @@ export const getAll = query({
   },
 });
 
-// export const getSearch = query({
-//   args: { name: v.string() },
-//   handler: async (ctx, args) => {
-//     const name = args.name as string;
-//     const identity = await ctx.auth.getUserIdentity();
-//     if (!identity) throw new Error("Unauthrozied");
-//     const searchData = ctx.db
-//       .query("users")
-//       .withSearchIndex("search_user", (q) => q.search("name", name))
-//       .collect();
+export const getSearchs = query({
+  args: { name: v.string() },
+  handler: async (ctx, args) => {
+    const name = args.name as string;
+    const identity = await ctx.auth.getUserIdentity();
+    if (!identity) throw new Error("Unauthrozied");
+    const searchData = ctx.db
+      .query("users")
+      .withSearchIndex("search_user", (q) => q.search("name", name))
+      .collect();
 
-//     return searchData;
-//   },
-// });
+    return searchData;
+  },
+});
 
 export const getThread = query({
   args: { threadId: v.id("threads") },

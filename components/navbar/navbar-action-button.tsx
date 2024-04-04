@@ -25,9 +25,13 @@ const ActionButton = () => {
           <Button className="w-full" asChild variant={"ghost"}>
             <Link href={"/setting"}>Settings</Link>
           </Button>
-          <Button className="w-full" asChild variant={"ghost"}>
-            <Link href={"/save"}>Save</Link>
+
+          <Button className="w-full" variant={"ghost"}>
+            <Link href={"/saved"} className="w-full">
+              Saved
+            </Link>
           </Button>
+
           <Button className="w-full" asChild variant={"ghost"}>
             <Link href={"/likes"}>Your likes</Link>
           </Button>

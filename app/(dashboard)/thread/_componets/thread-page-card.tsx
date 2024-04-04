@@ -8,9 +8,10 @@ import { useQuery } from "convex/react";
 import { api } from "@/convex/_generated/api";
 import { useAuth } from "@clerk/nextjs";
 import ThreadActionButton from "../../_components/action-button";
+import { Id } from "@/convex/_generated/dataModel";
 
 interface PostCardProps {
-  id: string;
+  id: Id<"threads">;
   createdAt: number;
   content: string;
   imageUrl?: string | undefined;

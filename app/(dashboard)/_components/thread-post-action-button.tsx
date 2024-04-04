@@ -23,9 +23,9 @@ interface ActionButtonProps {
 
 const ThreadPostActionButton = ({ id }: ActionButtonProps) => {
   const threadId = id;
-  const { mutate, pending } = useApiMutation(api.thread.remove);
+  const { mutate, pending } = useApiMutation(api.thread.removeThread);
   const threadData = useQuery(api.threads.getThread, { threadId });
-  console.log(threadData, "thread");
+  // console.log(threadData, "thread");
 
   const onDelete = () => {
     mutate({ id })
@@ -34,7 +34,7 @@ const ThreadPostActionButton = ({ id }: ActionButtonProps) => {
   };
   return (
     <DropdownMenu>
-      <DropdownMenuTrigger>
+      <DropdownMenuTrigger asChild>
         <Button variant={"ghost"} className="" size={"sm"}>
           <Ellipsis />
         </Button>
