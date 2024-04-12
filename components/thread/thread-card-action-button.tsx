@@ -1,51 +1,48 @@
 "use client";
 
-import ConfirmModal from "@/components/comform-modal";
+import ConfirmModal from "@/components/modal/comform-modal";
 import { Button } from "@/components/ui/button";
 import {
   DropdownMenu,
   DropdownMenuContent,
-  DropdownMenuItem,
+  DropdownMenuSeparator,
   DropdownMenuTrigger,
 } from "@/components/ui/dropdown-menu";
 import { api } from "@/convex/_generated/api";
 import { Id } from "@/convex/_generated/dataModel";
 import { useApiMutation } from "@/hooks/use-api-mutation";
 import { Ellipsis } from "lucide-react";
-import Link from "next/link";
 import { toast } from "sonner";
-import ThreadEditDailog from "../thread/_componets/thread-edit-dailog";
-import { useQuery } from "convex/react";
+import ThreadEditDailog from "../../app/(dashboard)/thread/_componets/thread-edit-dailog";
+import { useRouter } from "next/navigation";
 
 interface ActionButtonProps {
   id: Id<"threads">;
 }
 
-const ThreadPostActionButton = ({ id }: ActionButtonProps) => {
-  const threadId = id;
+const ThreadActionButton = ({ id }: ActionButtonProps) => {
   const { mutate, pending } = useApiMutation(api.thread.removeThread);
-  const threadData = useQuery(api.threads.getThread, { threadId });
-  // console.log(threadData, "thread");
+  const router = useRouter();
 
   const onDelete = () => {
     mutate({ id })
-      .then(() => toast.success("Thread Deleted"))
+      .then(() => {
+        toast.success("Thread Deleted");
+        router.push("/");
+      })
       .catch(() => toast.error("Threads failed to delete"));
   };
+
   return (
     <DropdownMenu>
-      <DropdownMenuTrigger asChild>
+      <DropdownMenuTrigger>
         <Button variant={"ghost"} className="" size={"sm"}>
-          <Ellipsis />
+          <Ellipsis  className="h-4 w-4"/>
         </Button>
       </DropdownMenuTrigger>
       <DropdownMenuContent side="bottom" onClick={(e) => e.stopPropagation()}>
-        {/* <ThreadEditDailog >
-          <Button>Edit</Button>
-        </ThreadEditDailog> */}
-
         <ThreadEditDailog threadId={id} />
-
+        <DropdownMenuSeparator />
         <ConfirmModal
           header="Delete Thread ? "
           description="Are you sure ?"
@@ -53,7 +50,7 @@ const ThreadPostActionButton = ({ id }: ActionButtonProps) => {
           onConfirm={onDelete}
         >
           <Button variant={"ghost"} className="w-full">
-            Delete{" "}
+            Delete
           </Button>
         </ConfirmModal>
       </DropdownMenuContent>
@@ -61,4 +58,4 @@ const ThreadPostActionButton = ({ id }: ActionButtonProps) => {
   );
 };
 
-export default ThreadPostActionButton;
+export default ThreadActionButton;

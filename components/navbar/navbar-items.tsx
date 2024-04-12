@@ -1,14 +1,14 @@
 import { Button } from "@/components/ui/button";
 import { Heart, HomeIcon, Search, SquarePen, UserRound } from "lucide-react";
 import Link from "next/link";
-import CreatePost from "../../app/(dashboard)/_components/create-post-dailog";
+import CreatePost from "../modal/create-post-modal";
 
 import { auth } from "@clerk/nextjs";
 
 const NavbarItems = async () => {
   const user = await auth();
   return (
-    <div className="flex items-center justify-between w-full h-full px-4 mt-1">
+    <div className="flex items-center justify-between w-full h-full px-4">
       <Button asChild variant={"ghost"} className="h-full" size={"lg"}>
         <Link href={"/"}>
           <HomeIcon />

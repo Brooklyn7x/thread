@@ -1,10 +1,11 @@
 "use client";
-
 import { api } from "@/convex/_generated/api";
 import { useQuery } from "convex/react";
 import { Id } from "@/convex/_generated/dataModel";
-import ThreadCommentsItems from "../_componets/thread-comment-list";
-import ThreadCard from "../_componets/thread-page-card";
+import ThreadPageCard from "@/components/thread/thread-page-card";
+import CommentsItemsList from "@/components/comments/comment-list";
+import { Speator } from "@/components/speator";
+
 interface PostIdPage {
   params: {
     threadId: Id<"threads">;
@@ -13,22 +14,18 @@ interface PostIdPage {
 
 const PostIdPage = ({ params }: PostIdPage) => {
   const threadId = params.threadId;
-  const data = useQuery(api.thread.getThreads, { threadId });
-  console.log(data);
+  const thread = useQuery(api.thread.getThreads, { threadId });
+  const comments = useQuery(api.comments.getCommentsByThread, { threadId });
+  if (!thread) return null;
+  if (!comments) return null;
+
+  console.log(comments);
 
   return (
     <div className="w-full">
-      <ThreadCard
-        id={data?._id}
-        createdAt={data?._creationTime!}
-        content={data?.content ?? ""}
-        imageUrl={data?.imageUrl}
-        userId={data?.userId || undefined}
-      />
-
-      <div className="w-full">
-        <ThreadCommentsItems />
-      </div>
+      <ThreadPageCard threads={thread} />
+      <Speator />
+      <CommentsItemsList comments={comments} />
     </div>
   );
 };

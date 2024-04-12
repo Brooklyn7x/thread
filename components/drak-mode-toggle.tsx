@@ -18,12 +18,8 @@ export function ModeToggle() {
 
   return (
     <DropdownMenu>
-      <DropdownMenuTrigger asChild>
-        <Button variant="ghost" className="w-full">
-          Appearance
-        </Button>
-      </DropdownMenuTrigger>
-      <DropdownMenuContent align="center" >
+      <DropdownMenuTrigger className="p-2 text-sm">Appearance</DropdownMenuTrigger>
+      <DropdownMenuContent align="start" className="mr-[180px] -mt-10">
         <DropdownMenuItem onClick={() => setTheme("light")}>
           Light
         </DropdownMenuItem>

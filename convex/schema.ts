@@ -21,11 +21,11 @@ export default defineSchema({
     .index("by_user", ["userId"]),
   
 
-  // comments: defineTable({
-  //   threadId: v.id("threads"),
-  //   userId: v.string(),
-  //   comments: v.string(),
-  // }).index("by_thread", ["threadId"]),
+  comments: defineTable({
+    threadId: v.id("threads"),
+    userId: v.string(),
+    comments: v.string(),
+  }).index("by_thread", ["threadId"]),
 
   likes: defineTable({
     userId: v.string(),

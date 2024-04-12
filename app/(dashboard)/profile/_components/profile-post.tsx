@@ -3,7 +3,7 @@
 import { useQuery } from "convex/react";
 
 import { api } from "@/convex/_generated/api";
-import ThreadCard from "../../_components/thread-card";
+import ThreadCard from "../../../../components/thread/thread-card";
 
 interface Props {
   userId: string;

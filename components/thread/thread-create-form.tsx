@@ -11,9 +11,10 @@ import { useForm } from "react-hook-form";
 import { z } from "zod";
 import { toast } from "sonner";
 import { Avatar, AvatarFallback, AvatarImage } from "@/components/ui/avatar";
+import { useUser } from "@clerk/nextjs";
+import UserAvater from "@/components/user-card/user-avatar";
 
 const formSchema = z.object({
-  //fix form zod
   content: z.string(),
   image: z.string(),
 });
@@ -23,8 +24,8 @@ interface CreateFormProps {
 }
 
 const CreateForm = ({ handleClose }: CreateFormProps) => {
+  const { user } = useUser();
   const router = useRouter();
-
   const { mutate, pending } = useApiMutation(api.thread.createThread);
 
   const form = useForm<z.infer<typeof formSchema>>({
@@ -53,18 +54,23 @@ const CreateForm = ({ handleClose }: CreateFormProps) => {
         <div className="w-full sm:max-w-xl">
           <div className="flex w-full px-6 py-4">
             <div className="pr-2 mt-1">
-              <Avatar>
-                <AvatarImage src="/l.jpeg" />
-                <AvatarFallback>CN</AvatarFallback>
-              </Avatar>
+              <UserAvater />
             </div>
 
             <div className="flex flex-col w-full">
               <div className="flex flex-col w-full">
-                <span className="text-sm">{"Shubham"}</span>
-                <span className="text-sm text-muted-foreground">
-                  shubhamjaiswalx
-                </span>
+                <span className="text-sm mb-2"> {user?.username}</span>
+                <FormField
+                  control={form.control}
+                  name="content"
+                  render={({ field }) => (
+                    <FormItem>
+                      <FormControl>
+                        <Input placeholder="start a thread" {...field} />
+                      </FormControl>
+                    </FormItem>
+                  )}
+                />
               </div>
 
               {/* <div className="flex mt-1 mb-4 space-x-2 text-muted-foreground">
@@ -94,17 +100,6 @@ const CreateForm = ({ handleClose }: CreateFormProps) => {
                     </FormItem>
                   )}
                 /> */}
-                <FormField
-                  control={form.control}
-                  name="content"
-                  render={({ field }) => (
-                    <FormItem>
-                      <FormControl>
-                        <Input placeholder="Content" {...field} />
-                      </FormControl>
-                    </FormItem>
-                  )}
-                />
 
                 <FormField
                   control={form.control}

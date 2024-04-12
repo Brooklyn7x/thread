@@ -5,7 +5,7 @@ import { getAllOrThrow } from "convex-helpers/server/relationships";
 
 export const savedThreads = mutation({
   args: {
-    id: v.id("threads"),
+    threadId: v.id("threads"),
     userId: v.string(),
   },
   handler: async (ctx, args) => {
@@ -13,7 +13,7 @@ export const savedThreads = mutation({
 
     if (!identity) throw new Error("Unauthrozied");
 
-    const thread = await ctx.db.get(args.id);
+    const thread = await ctx.db.get(args.threadId);
 
     if (!thread) {
       throw new Error("no thread found");
@@ -22,7 +22,7 @@ export const savedThreads = mutation({
     const existingSaved = await ctx.db
       .query("savedThreads")
       .withIndex("by_user_by_thread", (q) =>
-        q.eq("userId", args.userId).eq("threadId", args.id)
+        q.eq("userId", args.userId).eq("threadId", args.threadId)
       )
       .unique();
 
@@ -32,7 +32,7 @@ export const savedThreads = mutation({
 
     await ctx.db.insert("savedThreads", {
       userId: args.userId,
-      threadId: args.id,
+      threadId: args.threadId,
     });
 
     return thread;
@@ -40,13 +40,13 @@ export const savedThreads = mutation({
 });
 
 export const unSavedThreads = mutation({
-  args: { id: v.id("threads"), userId: v.string() },
+  args: { threadId: v.id("threads"), userId: v.string() },
   handler: async (ctx, args) => {
     const identity = await ctx.auth.getUserIdentity();
 
     if (!identity) throw new Error("Unauthrozied");
 
-    const thread = await ctx.db.get(args.id);
+    const thread = await ctx.db.get(args.threadId);
 
     if (!thread) {
       throw new Error("Thread not found");
@@ -55,7 +55,7 @@ export const unSavedThreads = mutation({
     const existingFavorites = await ctx.db
       .query("savedThreads")
       .withIndex("by_user_by_thread", (q) =>
-        q.eq("userId", args.userId).eq("threadId", args.id)
+        q.eq("userId", args.userId).eq("threadId", args.threadId)
       )
       .unique();
 
@@ -103,14 +103,14 @@ export const getSavedThreads = query({
 
 export const getSaved = query({
   args: {
-    id: v.id("threads"),
+    threadId: v.id("threads"),
     userId: v.string(),
   },
   handler: async (ctx, args) => {
     const thread = await ctx.db
       .query("savedThreads")
       .withIndex("by_user_by_thread", (q) =>
-        q.eq("userId", args.userId).eq("threadId", args.id)
+        q.eq("userId", args.userId).eq("threadId", args.threadId)
       )
       .unique();
     return thread;
