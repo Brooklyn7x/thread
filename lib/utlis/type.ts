@@ -15,3 +15,13 @@ export type Comment = {
   userId: string;
   threadId: Id<"threads">;
 };
+
+export type User = {
+  _id: Id<"users">;
+  _creationTime: number;
+  name?: string | undefined;
+  image?: string | undefined;
+  username?: string | undefined;
+  tokenIdentifier: string;
+  userId: string;
+};

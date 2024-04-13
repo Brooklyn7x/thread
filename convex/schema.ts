@@ -1,5 +1,6 @@
 import { v } from "convex/values";
 import { defineSchema, defineTable } from "convex/server";
+import { threadId } from "worker_threads";
 
 export default defineSchema({
   users: defineTable({
@@ -16,16 +17,18 @@ export default defineSchema({
   threads: defineTable({
     userId: v.string(),
     content: v.string(),
-    imageUrl: v.optional(v.string()),
+    imageUrl: v.id("_storage"),
   })
     .index("by_user", ["userId"]),
-  
+    // .index("by_threadId", ["threads"]),
 
   comments: defineTable({
     threadId: v.id("threads"),
     userId: v.string(),
     comments: v.string(),
-  }).index("by_thread", ["threadId"]),
+  })
+    .index("by_thread", ["threadId"])
+    .index("by_user", ["userId"]),
 
   likes: defineTable({
     userId: v.string(),
@@ -42,6 +45,11 @@ export default defineSchema({
     .index("by_user", ["userId"])
     .index("by_thread", ["threadId"])
     .index("by_user_by_thread", ["userId", "threadId"]),
+
+  imageStore: defineTable({
+    userId: v.string(),
+    threadId: v.id("threads"),
+  }).index("by_thread", ["threadId"]),
 
   // followers: defineTable({
   //   followerId: v.id("users"),

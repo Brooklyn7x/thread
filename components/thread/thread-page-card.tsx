@@ -38,15 +38,15 @@ export const ThreadPageCard = ({ threads }: PostCardProps) => {
         </div>
         <p className="pb-2 text-sm">{threads.content}</p>
 
-        {threads.imageUrl && (
+        {/* {threads.url && (
           <Image
-            src={threads.imageUrl}
+            src={threads.url}
             alt="User_image"
             height={300}
             width={300}
             className="my-2 rounded-md max-h-[380px] max-w-[340px] h-auto w-auto"
           />
-        )}
+        )} */}
 
         <ThreadButton id={threads._id} thread={threads} />
 

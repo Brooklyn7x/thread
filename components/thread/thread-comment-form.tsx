@@ -63,12 +63,12 @@ export function ThreadCommentForm({ thread, handleClose }: CommentFormProps) {
               <UserCardName userId={thread.userId} />
               <p className="pb-2 text-sm">{thread.content}</p>
             </div>
-            {thread.imageUrl && (
+            {thread?.url && (
               <Image
-                src={thread.imageUrl}
+                src={thread.url}
                 alt="User_image"
-                height={400}
-                width={400}
+                height={150}
+                width={150}
                 className="my-2 rounded-md "
               />
             )}

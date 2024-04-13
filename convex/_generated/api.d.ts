@@ -16,6 +16,7 @@ import type {
 } from "convex/server";
 import type * as clerk from "../clerk.js";
 import type * as comments from "../comments.js";
+import type * as file from "../file.js";
 import type * as http from "../http.js";
 import type * as like from "../like.js";
 import type * as saved from "../saved.js";
@@ -36,6 +37,7 @@ import type * as utils from "../utils.js";
 declare const fullApi: ApiFromModules<{
   clerk: typeof clerk;
   comments: typeof comments;
+  file: typeof file;
   http: typeof http;
   like: typeof like;
   saved: typeof saved;

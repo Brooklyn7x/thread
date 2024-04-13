@@ -3,7 +3,13 @@ import { mutation, query } from "./_generated/server";
 
 export const getAll = query({
   handler: async (ctx) => {
-    const threads = await ctx.db.query("threads").order("desc").collect();
+    const thread = await ctx.db.query("threads").order("desc").collect();
+    const threads = await Promise.all(
+      thread.map(async (thread) => ({
+        ...thread,
+        url: await ctx.storage.getUrl(thread.imageUrl),
+      }))
+    );
     return threads;
   },
 });
@@ -45,8 +51,13 @@ export const getThreadByUser = query({
       .query("threads")
       .withIndex("by_user", (q) => q.eq("userId", args.userId))
       .collect();
-
-    return thread;
+    const threads = await Promise.all(
+      thread.map(async (thread) => ({
+        ...thread,
+        url: await ctx.storage.getUrl(thread.imageUrl),
+      }))
+    );
+    return threads;
   },
 });
 

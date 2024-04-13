@@ -14,12 +14,12 @@ interface PostIdPage {
 
 const PostIdPage = ({ params }: PostIdPage) => {
   const threadId = params.threadId;
-  const thread = useQuery(api.thread.getThreads, { threadId });
+  const thread = useQuery(api.thread.getThreadById, { threadId });
   const comments = useQuery(api.comments.getCommentsByThread, { threadId });
   if (!thread) return null;
   if (!comments) return null;
 
-  console.log(comments);
+  
 
   return (
     <div className="w-full">

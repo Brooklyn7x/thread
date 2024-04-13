@@ -7,16 +7,22 @@ import { api } from "@/convex/_generated/api";
 import { useApiMutation } from "@/hooks/use-api-mutation";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { useRouter } from "next/navigation";
-import { useForm } from "react-hook-form";
+import { FieldName, useForm } from "react-hook-form";
 import { z } from "zod";
 import { toast } from "sonner";
 import { Avatar, AvatarFallback, AvatarImage } from "@/components/ui/avatar";
 import { useUser } from "@clerk/nextjs";
 import UserAvater from "@/components/user-card/user-avatar";
+import { useMutation } from "convex/react";
+import { ChangeEvent, useState } from "react";
+import { Doc } from "@/convex/_generated/dataModel";
+import { createThread } from "@/convex/thread";
 
 const formSchema = z.object({
   content: z.string(),
-  image: z.string(),
+  file: z
+    .custom<FileList>((val) => val instanceof FileList, "Required")
+    .refine((files) => files.length > 0, `Required`),
 });
 
 interface CreateFormProps {
@@ -26,24 +32,35 @@ interface CreateFormProps {
 const CreateForm = ({ handleClose }: CreateFormProps) => {
   const { user } = useUser();
   const router = useRouter();
+  const generateUploadUrl = useMutation(api.thread.generateUploadUrl);
   const { mutate, pending } = useApiMutation(api.thread.createThread);
 
   const form = useForm<z.infer<typeof formSchema>>({
     resolver: zodResolver(formSchema),
     defaultValues: {
       content: "",
-      image: "",
+      file: undefined,
     },
   });
+  const fileRef = form.register("file");
+  const onSubmit = async (values: z.infer<typeof formSchema>) => {
+    const postUrl = await generateUploadUrl();
 
-  const onSubmit = (values: z.infer<typeof formSchema>) => {
-    mutate({
+    const result = await fetch(postUrl, {
+      method: "POST",
+      headers: { "Content-Type": values.file[0].type },
+      body: values.file[0],
+    });
+
+    const { storageId } = await result.json();
+
+    await mutate({
       content: values.content,
-      imageUrl: values.image,
+      imageUrl: storageId,
+      userId: user?.id,
     })
       .then(() => {
         toast.success("Thread created.");
-        router.push("/");
         handleClose();
       })
       .catch(() => toast.error("Something went wrong."));
@@ -103,15 +120,16 @@ const CreateForm = ({ handleClose }: CreateFormProps) => {
 
                 <FormField
                   control={form.control}
-                  name="image"
-                  render={({ field }) => (
+                  name="file"
+                  render={() => (
                     <FormItem>
                       <FormControl>
-                        <Input {...field} placeholder="Image" />
+                        <Input type="file" {...fileRef} />
                       </FormControl>
                     </FormItem>
                   )}
                 />
+
                 <Button type="submit" variant={"secondary"}>
                   Submit
                 </Button>

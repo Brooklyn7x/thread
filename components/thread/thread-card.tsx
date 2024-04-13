@@ -42,16 +42,15 @@ export const ThreadCard = ({ threads }: PostCardProps) => {
           </div>
           <p className="pb-2 text-sm">{threads.content}</p>
 
-          {threads.imageUrl && (
+          {threads.url && (
             <Image
-              src={threads.imageUrl}
-              alt="User_image"
+              src={threads.url}
+              alt="user_image"
               height={400}
               width={400}
-              className="my-2 rounded-md "
+              className="my-2 rounded-md max-h-[380px] w-[320px] "
             />
           )}
-
           <ThreadButton thread={threads} id={threads._id} />
 
           <p className="text-muted-foreground text-md">5 replies · 5 likes</p>

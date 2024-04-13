@@ -40,3 +40,17 @@ export const getCommentsByThread = query({
     return comments;
   },
 });
+
+export const getCommentsByUser = query({
+  args: {
+    userId: v.string(),
+  },
+  handler: async (ctx, args) => {
+    const comments = ctx.db
+      .query("comments")
+      .withIndex("by_user", (t) => t.eq("userId", args.userId))
+      .order("desc")
+      .collect();
+    return comments;
+  },
+});

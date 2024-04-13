@@ -13,7 +13,6 @@ const CommentsItemsList = ({ comments }: ComeentsListProps) => {
         comments.map((comments) => (
           <CommentCard key={comments._id} comment={comments} />
         ))
-        
       ) : (
         <p>No Comment</p>
       )}
