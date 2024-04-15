@@ -1,43 +1,47 @@
 import { ModeToggle } from "@/components/drak-mode-toggle";
-import { Button } from "@/components/ui/button";
-import {
-  Popover,
-  PopoverContent,
-  PopoverTrigger,
-} from "@/components/ui/popover";
-import { SignOutButton } from "@clerk/nextjs";
 
-import { Ellipsis } from "lucide-react";
+import {
+  DropdownMenu,
+  DropdownMenuContent,
+  DropdownMenuItem,
+  DropdownMenuLabel,
+  DropdownMenuSeparator,
+  DropdownMenuTrigger,
+} from "@/components/ui/dropdown-menu";
+
+import { SignOutButton } from "@clerk/nextjs";
+import { ListFilter } from "lucide-react";
 import Link from "next/link";
 
-const ActionButton = () => {
+const NavbarActionButton = () => {
   return (
-    <Popover>
-      <PopoverTrigger asChild>
-        <Button variant={"ghost"}>
-          <Ellipsis />
-        </Button>
-      </PopoverTrigger>
-      <PopoverContent className="w-60">
-        <div className="flex flex-col w-full space-y-1">
-          <ModeToggle />
-
-          <Button className="w-full" asChild variant={"ghost"}>
-            <Link href={"/setting"}>Settings</Link>
-          </Button>
-          <Button className="w-full" asChild variant={"ghost"}>
-            <Link href={"/save"}>Save</Link>
-          </Button>
-          <Button className="w-full" asChild variant={"ghost"}>
-            <Link href={"/likes"}>Your likes</Link>
-          </Button>
-          <Button className="w-full" asChild variant={"ghost"}>
-            <SignOutButton />
-          </Button>
-        </div>
-      </PopoverContent>
-    </Popover>
+    <DropdownMenu>
+      <DropdownMenuTrigger asChild>
+        <ListFilter className="text-muted-foreground hover:text-white" />
+      </DropdownMenuTrigger>
+      <DropdownMenuContent className="w-40 rounded-2xl mr-4 bg-neutral-900">
+        <ModeToggle />
+        <DropdownMenuSeparator />
+        <DropdownMenuItem>
+          <Link href={"/setting"}>Settings</Link>
+        </DropdownMenuItem>
+        <DropdownMenuSeparator />
+        <DropdownMenuItem>
+          <Link href={"/saved"} className="w-full">
+            Saved
+          </Link>
+        </DropdownMenuItem>
+        <DropdownMenuSeparator />
+        <DropdownMenuItem>
+          <Link href={"/likes"}>Your likes</Link>
+        </DropdownMenuItem>
+        <DropdownMenuSeparator />
+        <DropdownMenuItem>
+          <SignOutButton />
+        </DropdownMenuItem>
+      </DropdownMenuContent>
+    </DropdownMenu>
   );
 };
 
-export default ActionButton;
+export default NavbarActionButton;

@@ -4,9 +4,9 @@ import Mobilebar from "../../components/navbar/mobilebar/mobilebar";
 
 const DashBoardLayout = ({ children }: { children: React.ReactNode }) => {
   return (
-    <main className="h-full">
+    <main>
       <Navbar />
-      <div className="max-w-xl px-5 pt-20 mx-auto">{children}</div>
+      <div className="max-w-3xl pt-20 sm:px-20 mx-auto">{children}</div>
       <Mobilebar />
     </main>
   );

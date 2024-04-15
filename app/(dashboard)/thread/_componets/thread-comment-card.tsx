@@ -1,8 +1,8 @@
 import Image from "next/image";
-import PostActionButton from "../../_components/thread-buttoon";
-import ActionButton from "../../_components/action-button";
+import PostActionButton from "../../../../components/thread/thread-button";
+import ActionButton from "../../../../components/thread/thread-card-action-button";
 import Link from "next/link";
-import ThreadPostActionButton from "../../_components/thread-post-action-button";
+import ThreadPostActionButton from "../../../../components/thread/thread-post-action-button";
 
 interface ThreadCommentProps {
   id: String;
@@ -48,7 +48,7 @@ const ThreadCommentsCard = ({
             width={300}
             className="my-2 rounded-md"
           /> */}
-            <PostActionButton id={id} />
+            <PostActionButton threadId={id} />
           </div>
         </Link>
       </div>

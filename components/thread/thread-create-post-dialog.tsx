@@ -1,5 +1,5 @@
 import { Button } from "@/components/ui/button";
-import CreatePostDialog from "./create-post-dailog";
+import CreatePostDialog from "../modal/create-post-modal";
 
 export const CreateThreadDailogx = () => {
   return (
@@ -9,7 +9,9 @@ export const CreateThreadDailogx = () => {
           <p className="px-2 text-sm text-muted-foreground">
             Start a thread...
           </p>
-          <Button className="rounded-3xl">Post</Button>
+          <Button className="rounded-3xl" disabled={true}>
+            Post
+          </Button>
         </div>
       </div>
     </CreatePostDialog>

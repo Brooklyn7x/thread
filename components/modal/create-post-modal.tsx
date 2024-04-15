@@ -7,7 +7,7 @@ import {
   DialogContent,
   DialogTrigger,
 } from "@/components/ui/dialog";
-import CreateForm from "./create-form";
+import CreateForm from "../thread/thread-create-form";
 import { useState } from "react";
 
 interface CreatePostProps {

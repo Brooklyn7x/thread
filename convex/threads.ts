@@ -3,25 +3,31 @@ import { mutation, query } from "./_generated/server";
 
 export const getAll = query({
   handler: async (ctx) => {
-    const threads = await ctx.db.query("threads").order("desc").collect();
+    const thread = await ctx.db.query("threads").order("desc").collect();
+    const threads = await Promise.all(
+      thread.map(async (thread) => ({
+        ...thread,
+        url: await ctx.storage.getUrl(thread.imageUrl),
+      }))
+    );
     return threads;
   },
 });
 
-// export const getSearch = query({
-//   args: { name: v.string() },
-//   handler: async (ctx, args) => {
-//     const name = args.name as string;
-//     const identity = await ctx.auth.getUserIdentity();
-//     if (!identity) throw new Error("Unauthrozied");
-//     const searchData = ctx.db
-//       .query("users")
-//       .withSearchIndex("search_user", (q) => q.search("name", name))
-//       .collect();
+export const getSearchs = query({
+  args: { name: v.string() },
+  handler: async (ctx, args) => {
+    const name = args.name as string;
+    const identity = await ctx.auth.getUserIdentity();
+    if (!identity) throw new Error("Unauthrozied");
+    const searchData = ctx.db
+      .query("users")
+      .withSearchIndex("search_user", (q) => q.search("name", name))
+      .collect();
 
-//     return searchData;
-//   },
-// });
+    return searchData;
+  },
+});
 
 export const getThread = query({
   args: { threadId: v.id("threads") },
@@ -45,8 +51,13 @@ export const getThreadByUser = query({
       .query("threads")
       .withIndex("by_user", (q) => q.eq("userId", args.userId))
       .collect();
-
-    return thread;
+    const threads = await Promise.all(
+      thread.map(async (thread) => ({
+        ...thread,
+        url: await ctx.storage.getUrl(thread.imageUrl),
+      }))
+    );
+    return threads;
   },
 });
 

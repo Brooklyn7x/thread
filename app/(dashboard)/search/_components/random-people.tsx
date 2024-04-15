@@ -45,7 +45,7 @@ const RandromPeoplCard = () => {
 };
 
 const RandomPeople = () => {
-  const data = useQuery(api.threads.get);
+  const data = useQuery(api.threads.getAll);
   return (
     <div>
       {data?.map(() => (

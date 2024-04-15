@@ -1,20 +1,15 @@
-// Avatar component
-import {
-  Avatar as BaseAvatar,
-  AvatarImage,
-  AvatarFallback,
-} from "@/components/ui/avatar";
+import { Avatar, AvatarImage, AvatarFallback } from "@/components/ui/avatar";
 import { useUser } from "@clerk/nextjs";
 
-const Avatar = () => {
+const UserAvater = () => {
   const currentUser = useUser();
 
   return (
-    <BaseAvatar>
+    <Avatar>
       <AvatarImage src={currentUser.user?.imageUrl} />
       <AvatarFallback>{currentUser.user?.username?.charAt(0)}</AvatarFallback>
-    </BaseAvatar>
+    </Avatar>
   );
 };
 
-export default Avatar;
+export default UserAvater;

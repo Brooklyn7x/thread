@@ -1,5 +1,6 @@
 import { v } from "convex/values";
 import { defineSchema, defineTable } from "convex/server";
+import { threadId } from "worker_threads";
 
 export default defineSchema({
   users: defineTable({
@@ -16,30 +17,39 @@ export default defineSchema({
   threads: defineTable({
     userId: v.string(),
     content: v.string(),
-    imageUrl: v.optional(v.string()),
-  }).index("by_user", ["userId"]),
+    imageUrl: v.id("_storage"),
+  })
+    .index("by_user", ["userId"]),
+    // .index("by_threadId", ["threads"]),
 
-  // comments: defineTable({
-  //   threadId: v.id("threads"),
-  //   userId: v.string(),
-  //   comments: v.string(),
-  // }).index("by_thread", ["threadId"]),
+  comments: defineTable({
+    threadId: v.id("threads"),
+    userId: v.string(),
+    comments: v.string(),
+  })
+    .index("by_thread", ["threadId"])
+    .index("by_user", ["userId"]),
 
-  // likes: defineTable({
-  //   userId: v.id("users"),
-  //   threadId: v.id("threads"),
-  // })
-  //   .index("by_user", ["userId"])
-  //   .index("by_thread", ["threadId"])
-  //   .index("by_thread_by_user", ["userId", "threadId"]),
+  likes: defineTable({
+    userId: v.string(),
+    threadId: v.id("threads"),
+  })
+    .index("by_user", ["userId"])
+    .index("by_thread", ["threadId"])
+    .index("by_user_by_thread", ["userId", "threadId"]),
 
-  // savedThreads: defineTable({
-  //   userId: v.id("users"),
-  //   threadId: v.id("threads"),
-  // })
-  //   .index("by_user", ["userId"])
+  savedThreads: defineTable({
+    userId: v.string(),
+    threadId: v.id("threads"),
+  })
+    .index("by_user", ["userId"])
+    .index("by_thread", ["threadId"])
+    .index("by_user_by_thread", ["userId", "threadId"]),
 
-  //   .index("by_thread", ["threadId"]),
+  imageStore: defineTable({
+    userId: v.string(),
+    threadId: v.id("threads"),
+  }).index("by_thread", ["threadId"]),
 
   // followers: defineTable({
   //   followerId: v.id("users"),
