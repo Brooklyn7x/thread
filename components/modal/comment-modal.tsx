@@ -8,7 +8,7 @@ import {
 
 import { useState } from "react";
 import { MessageCircle } from "lucide-react";
-import { Comment } from "@/lib/utlis/type";
+import { Comment } from "@/lib/types/type";
 import { CommentForm } from "../comments/comment-form";
 const CommentModal = ({ comment }: { comment: Comment }) => {
   const [open, setOpen] = useState(false);

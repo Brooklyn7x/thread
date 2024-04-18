@@ -5,7 +5,7 @@ import ThreadButton from "./thread-button";
 import { ThreadOtherAction } from "./thread-pop-button";
 import { formatTime } from "@/lib/utils";
 import { useUser } from "@clerk/nextjs";
-import { Thread } from "@/lib/utlis/type";
+import { Thread } from "@/lib/types/type";
 import UserThreadCard from "../user-card/user-image";
 import UserCardName from "../user-card/user-card-name";
 

@@ -18,7 +18,7 @@ import { Id } from "@/convex/_generated/dataModel";
 import { useApiMutation } from "@/hooks/use-api-mutation";
 import { api } from "@/convex/_generated/api";
 import { toast } from "sonner";
-import { Comment } from "@/lib/utlis/type";
+import { Comment } from "@/lib/types/type";
 import { useUser } from "@clerk/nextjs";
 import UserImage from "../user-card/user-image";
 import UserCardName from "../user-card/user-card-name";

@@ -1,5 +1,5 @@
 import ThreadCard from "@/components/thread/thread-card";
-import { Thread } from "@/lib/utlis/type";
+import { Thread } from "@/lib/types/type";
 
 interface ThreadsProps {
   threads: Thread[];
