@@ -19,8 +19,6 @@ const PostIdPage = ({ params }: PostIdPage) => {
   if (!thread) return null;
   if (!comments) return null;
 
-  
-
   return (
     <div className="w-full">
       <ThreadPageCard threads={thread} />

@@ -26,7 +26,7 @@ const CommentActionButton = ({ threadId: id }: CommentActionButtonProps) => {
   const threadId = id;
   const [open, setOpen] = useState(false);
   const { user } = useUser();
-  const userId = user?.id;
+  const userId = user?.id || "";
   const { mutate: saveThread } = useApiMutation(api.saved.savedThreads);
   const { mutate: unsaveThread } = useApiMutation(api.saved.unSavedThreads);
   const saved = useQuery(api.saved.getSaved, { userId, threadId });

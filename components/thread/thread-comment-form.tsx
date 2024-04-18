@@ -14,7 +14,6 @@ import { useUser } from "@clerk/nextjs";
 import UserImage from "../user-card/user-image";
 import UserCardName from "../user-card/user-card-name";
 import Image from "next/image";
-import { Avatar, AvatarImage } from "../ui/avatar";
 
 interface CommentFormProps {
   thread: Thread;

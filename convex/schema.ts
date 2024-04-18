@@ -18,9 +18,9 @@ export default defineSchema({
     userId: v.string(),
     content: v.string(),
     imageUrl: v.id("_storage"),
-  })
-    .index("by_user", ["userId"]),
-    // .index("by_threadId", ["threads"]),
+    url: v.optional(v.string()),
+  }).index("by_user", ["userId"]),
+  // .index("by_threadId", ["threads"]),
 
   comments: defineTable({
     threadId: v.id("threads"),

@@ -1,5 +1,4 @@
 import Image from "next/image";
-import Link from "next/link";
 import ThreadActionButton from "./thread-card-action-button";
 import ThreadButton from "./thread-button";
 import { ThreadOtherAction } from "./thread-pop-button";
@@ -38,7 +37,7 @@ export const ThreadPageCard = ({ threads }: PostCardProps) => {
         </div>
         <p className="pb-2 text-sm">{threads.content}</p>
 
-        {/* {threads.url && (
+        {threads.url && (
           <Image
             src={threads.url}
             alt="User_image"
@@ -46,7 +45,7 @@ export const ThreadPageCard = ({ threads }: PostCardProps) => {
             width={300}
             className="my-2 rounded-md max-h-[380px] max-w-[340px] h-auto w-auto"
           />
-        )} */}
+        )}
 
         <ThreadButton id={threads._id} thread={threads} />
 

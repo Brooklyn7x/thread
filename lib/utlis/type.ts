@@ -1,12 +1,22 @@
 import { Id } from "@/convex/_generated/dataModel";
 
 export type Thread = {
+  url?: string | null;
   _id: Id<"threads">;
   _creationTime: number;
   imageUrl?: string | undefined;
   userId: string;
   content: string;
 };
+
+export type Threads = {
+  id: Id<"threads">;
+  _creationTime: number;
+  imageUrl?: string | undefined;
+  userId: string;
+  content: string;
+  url?: string | null;
+}[];
 
 export type Comment = {
   _id: Id<"comments">;

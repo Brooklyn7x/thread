@@ -12,7 +12,7 @@ import {
 import { api } from "@/convex/_generated/api";
 import { Id } from "@/convex/_generated/dataModel";
 import { useApiMutation } from "@/hooks/use-api-mutation";
-import { useAuth } from "@clerk/nextjs";
+import { useAuth, useUser } from "@clerk/nextjs";
 import { useQuery } from "convex/react";
 import { Ellipsis } from "lucide-react";
 import { useRouter } from "next/navigation";
@@ -22,7 +22,8 @@ interface ActionButtonProps {
   threadId: Id<"threads">;
 }
 export const ThreadOtherAction = ({ threadId }: ActionButtonProps) => {
-  const { userId } = useAuth();
+  const { user } = useUser();
+  const userId = user?.id || "";
   const { mutate: saveThread } = useApiMutation(api.saved.savedThreads);
   const { mutate: unsaveThread } = useApiMutation(api.saved.unSavedThreads);
   const saved = useQuery(api.saved.getSaved, { userId, threadId });
