@@ -1,4 +1,4 @@
-import { User } from "@/lib/utlis/type";
+import { User } from "@/lib/types/type";
 import Image from "next/image";
 
 interface ProfileHeaderProps {

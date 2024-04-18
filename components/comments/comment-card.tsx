@@ -6,7 +6,7 @@ import { formatTime } from "@/lib/utils";
 import { api } from "@/convex/_generated/api";
 import { useQuery } from "convex/react";
 import { CommentForm } from "./comment-form";
-import { Comment } from "@/lib/utlis/type";
+import { Comment } from "@/lib/types/type";
 import { comment } from "postcss";
 import UserImage from "../user-card/user-image";
 import UserCardName from "../user-card/user-card-name";

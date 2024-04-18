@@ -1,4 +1,4 @@
-import { Comment } from "@/lib/utlis/type";
+import { Comment } from "@/lib/types/type";
 import CommentCard from "./comment-card";
 import { Speator } from "../speator";
 

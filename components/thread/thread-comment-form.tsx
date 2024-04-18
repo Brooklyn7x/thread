@@ -9,7 +9,7 @@ import { Input } from "@/components/ui/input";
 import { useApiMutation } from "@/hooks/use-api-mutation";
 import { api } from "@/convex/_generated/api";
 import { toast } from "sonner";
-import { Comment, Thread } from "@/lib/utlis/type";
+import { Comment, Thread } from "@/lib/types/type";
 import { useUser } from "@clerk/nextjs";
 import UserImage from "../user-card/user-image";
 import UserCardName from "../user-card/user-card-name";

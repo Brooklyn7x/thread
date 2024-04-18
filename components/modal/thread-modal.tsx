@@ -8,7 +8,7 @@ import {
 
 import { useState } from "react";
 import { MessageCircle } from "lucide-react";
-import { Thread } from "@/lib/utlis/type";
+import { Thread } from "@/lib/types/type";
 import { ThreadCommentForm } from "../thread/thread-comment-form";
 export const ThreadCommentModal = ({ thread }: { thread: Thread }) => {
   const [open, setOpen] = useState(false);

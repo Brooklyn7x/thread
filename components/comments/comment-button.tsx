@@ -8,7 +8,7 @@ import { useQuery } from "convex/react";
 import { Heart, Repeat, Send } from "lucide-react";
 import { toast } from "sonner";
 import CommentModal from "@/components/modal/comment-modal";
-import { Comment } from "@/lib/utlis/type";
+import { Comment } from "@/lib/types/type";
 import { Id } from "@/convex/_generated/dataModel";
 
 interface ThreadActionButtonProps {
