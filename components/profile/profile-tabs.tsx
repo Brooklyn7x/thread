@@ -12,7 +12,7 @@ interface Props {
   userId: string;
 }
 
-export function ProfileTabs({ userId }: Props) {
+export  function ProfileTabs({ userId }: Props) {
   const thread = useQuery(api.threads.getThreadByUser, { userId });
   const comment = useQuery(api.comments.getCommentsByUser, { userId });
   if (!thread) return null;

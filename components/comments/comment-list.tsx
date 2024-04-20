@@ -1,6 +1,7 @@
 import { Comment } from "@/lib/types/type";
 import CommentCard from "./comment-card";
 import { Speator } from "../speator";
+import { memo } from "react";
 
 interface ComeentsListProps {
   comments: Comment[];
@@ -20,4 +21,4 @@ const CommentsItemsList = ({ comments }: ComeentsListProps) => {
   );
 };
 
-export default CommentsItemsList;
+export default memo(CommentsItemsList);

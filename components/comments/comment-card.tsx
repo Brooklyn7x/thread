@@ -14,6 +14,7 @@ import { Speator } from "../speator";
 import { Separator } from "../ui/separator";
 import CommentActionButton from "./comment-actions.button";
 import CommentButton from "./comment-button";
+import { memo } from "react";
 
 interface CommentCardProps {
   comment: Comment;
@@ -73,5 +74,5 @@ export const CommentCard = ({ comment }: CommentCardProps) => {
   );
 };
 
-export default CommentCard;
+export default memo(CommentCard);
 // Reply to {userData[0].username}...

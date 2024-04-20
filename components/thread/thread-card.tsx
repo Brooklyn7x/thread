@@ -8,6 +8,7 @@ import { useUser } from "@clerk/nextjs";
 import { Thread } from "@/lib/types/type";
 import UserThreadCard from "../user-card/user-image";
 import UserCardName from "../user-card/user-card-name";
+import { memo } from "react";
 
 interface PostCardProps {
   threads: Thread;
@@ -61,4 +62,4 @@ export const ThreadCard = ({ threads }: PostCardProps) => {
   );
 };
 
-export default ThreadCard;
+export default memo(ThreadCard);

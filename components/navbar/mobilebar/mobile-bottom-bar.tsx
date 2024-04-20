@@ -1,3 +1,4 @@
+"use client";
 import Link from "next/link";
 import CreatePostDialog from "@/components/modal/create-post-modal";
 import { Button } from "@/components/ui/button";
@@ -5,8 +6,7 @@ import { cn } from "@/lib/utils";
 import { Heart, HomeIcon, Search, SquarePen, UserRound } from "lucide-react";
 
 const MobileBottombar = ({ userId }: { userId: string | undefined }) => {
-  // const router = useRouter();
-  const isActive = "/" || "/search";
+  const isActive = null;
   // const isActive = router.pathname || router.pathname === "/";
 
   return (
@@ -24,7 +24,7 @@ const MobileBottombar = ({ userId }: { userId: string | undefined }) => {
       <Button variant={"ghost"} className="h-full" size={"sm"}>
         <Link
           href={"/search"}
-          className={cn(isActive && "text-white", "text-primary-foreground")}
+          className={cn("text-purple-100", isActive && "fill-blue-400")}
         >
           <Search />
         </Link>
@@ -37,7 +37,7 @@ const MobileBottombar = ({ userId }: { userId: string | undefined }) => {
       <Button variant={"ghost"} className="h-full" size={"sm"}>
         <Link
           href={"/activity"}
-          className={cn(isActive && "text-white", "text-primary-foreground")}
+          className={cn("text-purple-100", isActive && "fill-blue-400")}
         >
           <Heart />
         </Link>
@@ -45,7 +45,7 @@ const MobileBottombar = ({ userId }: { userId: string | undefined }) => {
       <Button variant={"ghost"} className="h-full" size={"sm"}>
         <Link
           href={`/profile/${userId}`}
-          className={cn(isActive && "text-white", "text-primary-foreground")}
+          className={cn("text-purple-100", isActive && "fill-blue-400")}
         >
           <UserRound />
         </Link>

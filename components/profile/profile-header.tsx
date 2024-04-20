@@ -1,11 +1,12 @@
 import { User } from "@/lib/types/type";
 import Image from "next/image";
+import { memo } from "react";
 
 interface ProfileHeaderProps {
   user: User[] | undefined;
 }
 
-export const ProfileHeader = ({ user }: ProfileHeaderProps) => {
+const ProfileHeader = ({ user }: ProfileHeaderProps) => {
   if (!user) return null;
   return (
     <div>
@@ -27,3 +28,4 @@ export const ProfileHeader = ({ user }: ProfileHeaderProps) => {
     </div>
   );
 };
+export default memo(ProfileHeader);
