@@ -1,9 +1,11 @@
+import { memo } from "react";
 import { InstagramIcon } from "lucide-react";
+
 interface FollowerCountProps {
   followerCount: number;
 }
 
-export const FollowerCount = ({ followerCount }: FollowerCountProps) => (
+const Follower = ({ followerCount }: FollowerCountProps) => (
   <div className="flex items-center justify-between my-3">
     <div>{followerCount} Followers . Hyper.ss</div>
     <div className="pl-3">
@@ -11,3 +13,5 @@ export const FollowerCount = ({ followerCount }: FollowerCountProps) => (
     </div>
   </div>
 );
+
+export default memo(Follower);

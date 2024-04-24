@@ -19,6 +19,7 @@ import { useForm } from "react-hook-form";
 import { z } from "zod";
 import { toast } from "sonner";
 import { Avatar, AvatarImage } from "@/components/ui/avatar";
+import { memo } from "react";
 
 const formSchema = z.object({
   threads: z.string(),
@@ -114,4 +115,4 @@ const ThreadEditForm = ({ thread, handleClose }: Props) => {
   );
 };
 
-export default ThreadEditForm;
+export default memo(ThreadEditForm);

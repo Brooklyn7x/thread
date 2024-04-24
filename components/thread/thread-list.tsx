@@ -1,5 +1,6 @@
 import ThreadCard from "@/components/thread/thread-card";
 import { Thread } from "@/lib/types/type";
+import { memo } from "react";
 
 interface ThreadsProps {
   threads: Thread[];
@@ -21,4 +22,4 @@ const ThreadList = ({ threads }: ThreadsProps) => {
   );
 };
 
-export default ThreadList;
+export default memo(ThreadList);

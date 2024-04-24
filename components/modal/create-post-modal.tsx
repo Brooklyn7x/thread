@@ -22,7 +22,7 @@ const CreatePostDialog = ({ children }: CreatePostProps) => {
   return (
     <Dialog open={open} onOpenChange={setOpen}>
       <DialogTrigger asChild>{children}</DialogTrigger>
-      <DialogContent>
+      <DialogContent className="px-4">
         <CreateForm handleClose={handleClose} />
       </DialogContent>
     </Dialog>
