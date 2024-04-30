@@ -6,7 +6,7 @@ import { Session } from "@/lib/auth";
 const Navbar = (session: any) => {
   return (
     <div className="top-0 fixed w-full flex items-center justify-center sm:justify-between z-50 backdrop-blur-xl bg-background/60">
-      <div className="mx-5 h-[74px] flex w-full items-center justify-between">
+      <div className="mx-5 h-16 sm:h-[74px] flex w-full items-center justify-between">
         <Logo />
 
         <div className="hidden h-full sm:block p-1">

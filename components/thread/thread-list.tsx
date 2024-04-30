@@ -8,7 +8,7 @@ interface ThreadsProps {
 
 const ThreadList = ({ threads }: ThreadsProps) => {
   return (
-    <div className="w-full px-1">
+    <div className="w-full px-2">
       {threads.length > 0 ? (
         <div className="w-full">
           {threads.map((threads: Thread) => (

@@ -52,9 +52,9 @@ export const ThreadOtherAction = ({ threadId }: ActionButtonProps) => {
   return (
     <DropdownMenu>
       <DropdownMenuTrigger asChild>
-        <Ellipsis className="w-4 h-4" />
+        <Ellipsis className="w-5 h-5"/>
       </DropdownMenuTrigger>
-      <DropdownMenuContent className="w-40">
+      <DropdownMenuContent className="w-40" align="end">
         <DropdownMenuItem asChild>
           <Button
             onClick={toggleSave}
