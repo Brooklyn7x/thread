@@ -1,3 +1,4 @@
+"use client";
 import { Avatar, AvatarImage, AvatarFallback } from "@/components/ui/avatar";
 import { useUser } from "@clerk/nextjs";
 

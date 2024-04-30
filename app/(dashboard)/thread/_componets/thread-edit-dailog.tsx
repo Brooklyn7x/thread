@@ -22,8 +22,8 @@ const ThreadEditDailog = ({ threadId }: { threadId: Id<"threads"> }) => {
 
   return (
     <Dialog open={open} onOpenChange={setOpen}>
-      <DialogTrigger asChild className="w-full">
-        <Button variant={"ghost"}>Edit</Button>
+      <DialogTrigger asChild className="w-full justify-start">
+        <Button variant={"ghost"} size={"sm"}>Edit</Button>
       </DialogTrigger>
       <DialogContent>
         <ThreadEditForm thread={threadData} handleClose={handleClose} />
