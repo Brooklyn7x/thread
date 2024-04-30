@@ -24,7 +24,7 @@ const NavbarActionButton = () => {
       <DropdownMenuTrigger asChild>
         <ListFilter className="text-muted-foreground hover:text-white" />
       </DropdownMenuTrigger>
-      <DropdownMenuContent className="w-40 rounded-2xl mr-4 bg-neutral-900">
+      <DropdownMenuContent className="w-40 rounded-2xl mr-4 bg-neutral-900" align="end" alignOffset={10}>
         <ModeToggle  onClosePopover={onClosePopover}/>
         <DropdownMenuSeparator />
         <DropdownMenuItem>
