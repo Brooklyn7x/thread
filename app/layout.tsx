@@ -2,8 +2,9 @@ import type { Metadata } from "next";
 import { Inter } from "next/font/google";
 import "./globals.css";
 import { ThemeProvider } from "@/components/theme-provider";
-import { ConvexClientProvider } from "@/provider/convex-client-provider";
+import { ConvexClientProvider } from "@/app/provider";
 import { Toaster } from "@/components/ui/sonner";
+import { Pen } from "lucide-react";
 
 const inter = Inter({ subsets: ["latin"] });
 
@@ -27,7 +28,7 @@ export default function RootLayout({
             enableSystem
             disableTransitionOnChange
           >
-            <Toaster theme="light" position="bottom-center"/>
+            <Toaster theme="light" position="bottom-center" closeButton richColors />
             {children}
           </ThemeProvider>
         </ConvexClientProvider>

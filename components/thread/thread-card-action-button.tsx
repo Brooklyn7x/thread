@@ -37,7 +37,7 @@ const ThreadActionButton = ({ id }: ActionButtonProps) => {
     <DropdownMenu>
       <DropdownMenuTrigger>
         <Button variant={"ghost"} className="" size={"sm"}>
-          <Ellipsis  className="h-4 w-4"/>
+          <Ellipsis className="h-4 w-4" />
         </Button>
       </DropdownMenuTrigger>
       <DropdownMenuContent side="bottom" onClick={(e) => e.stopPropagation()}>
@@ -49,7 +49,11 @@ const ThreadActionButton = ({ id }: ActionButtonProps) => {
           disabled={pending}
           onConfirm={onDelete}
         >
-          <Button variant={"ghost"} className="w-full">
+          <Button
+            variant={"ghost"}
+            className="w-full justify-start"
+            size={"sm"}
+          >
             Delete
           </Button>
         </ConfirmModal>

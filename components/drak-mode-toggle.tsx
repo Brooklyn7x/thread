@@ -13,18 +13,20 @@ import {
 } from "@/components/ui/dropdown-menu";
 import { MoonIcon, SunIcon } from "lucide-react";
 
-export function ModeToggle() {
+export function ModeToggle({ onClosePopover }: { onClosePopover: () => void }) {
   const { setTheme } = useTheme();
 
   return (
     <DropdownMenu>
-      <DropdownMenuTrigger className="p-2 text-sm">Appearance</DropdownMenuTrigger>
+      <DropdownMenuTrigger className="p-2 text-sm" onClick={onClosePopover}>
+        Appearance
+      </DropdownMenuTrigger>
       <DropdownMenuContent align="start" className="mr-[180px] -mt-10">
         <DropdownMenuItem onClick={() => setTheme("light")}>
-          Light
+          <MoonIcon />
         </DropdownMenuItem>
         <DropdownMenuItem onClick={() => setTheme("dark")}>
-          Dark
+         <SunIcon />
         </DropdownMenuItem>
         <DropdownMenuItem onClick={() => setTheme("system")}>
           System

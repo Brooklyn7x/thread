@@ -1,12 +1,15 @@
 import React from "react";
 import Navbar from "../../components/navbar/navbar";
 import Mobilebar from "../../components/navbar/mobilebar/mobilebar";
+import Nav from "@/components/navbar/nav";
 
 const DashBoardLayout = ({ children }: { children: React.ReactNode }) => {
   return (
     <main>
-      <Navbar />
-      <div className="max-w-3xl pt-20 sm:px-20 mx-auto">{children}</div>
+      <Nav />
+      <div className="max-w-screen-md pt-20 sm:px-20 mx-auto min-h-screen">
+        {children}
+      </div>
       <Mobilebar />
     </main>
   );
