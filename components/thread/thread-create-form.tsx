@@ -33,7 +33,7 @@ interface CreateFormProps {
 }
 
 const CreateForm = ({ handleClose }: CreateFormProps) => {
-  const [selectedFile, setSelectedFile] = React.useState<File>(null);
+  const [selectedFile, setSelectedFile] = React.useState<File>();
   const [fileURL, setFileURL] = React.useState("");
   const handleFileChange = (event: any) => {
     const file = event.target.files[0];
