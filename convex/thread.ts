@@ -56,16 +56,23 @@ export const getThreadById = query({
   args: {
     threadId: v.id("threads"),
   },
+
   handler: async (ctx, args) => {
-    const thread = ctx.db.get(args.threadId);
-    // const threads = await Promise.all(
-    //   thread.map(async (thread) => ({
-    //     ...thread,
-    //     url: await ctx.storage.getUrl(thread.imageUrl),
-    //   }))
-    // );
-    // return threads;
-    return thread;
+   
+    const thread = await ctx.db.get(args.threadId);
+    
+    if (!thread) {
+      throw new Error("Thread not found");
+    }
+    
+    
+    const imageUrl = thread.imageUrl ? await ctx.storage.getUrl(thread.imageUrl) : null;
+
+
+    return {
+      ...thread,
+      url: imageUrl,
+    };
   },
 });
 

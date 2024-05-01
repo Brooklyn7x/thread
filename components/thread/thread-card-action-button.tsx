@@ -36,11 +36,14 @@ const ThreadActionButton = ({ id }: ActionButtonProps) => {
   return (
     <DropdownMenu>
       <DropdownMenuTrigger>
-        <Button variant={"ghost"} className="" size={"sm"}>
-          <Ellipsis className="h-5 w-5" />
-        </Button>
+        <Ellipsis className="h-5 w-5 mr-2" />
       </DropdownMenuTrigger>
-      <DropdownMenuContent side="bottom" onClick={(e) => e.stopPropagation()} align="end" alignOffset={10}>
+      <DropdownMenuContent
+        side="bottom"
+        onClick={(e) => e.stopPropagation()}
+        align="end"
+        alignOffset={10}
+      >
         <ThreadEditDailog threadId={id} />
         <DropdownMenuSeparator />
         <ConfirmModal

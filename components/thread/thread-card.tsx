@@ -35,9 +35,11 @@ export const ThreadCard = ({ threads }: PostCardProps) => {
                 {createdAtLabel}
               </p>
             </div>
+
             <Suspense>
               <ThreadCardButton thread={threads} />
             </Suspense>
+
           </div>
           <p className="pb-2 text-sm">{threads.content}</p>
 
@@ -50,6 +52,7 @@ export const ThreadCard = ({ threads }: PostCardProps) => {
               className="my-2 rounded-md max-h-[380px] w-[320px] "
             />
           )}
+
           <ThreadButton thread={threads} id={threads._id} />
 
           <p className="text-muted-foreground text-md">5 replies · 5 likes</p>

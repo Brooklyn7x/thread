@@ -11,7 +11,7 @@ const Nav = () => {
 };
 
 async function NavRSC() {
-  const session = auth();
+  const session = await auth();
   return <Navbar session={session} />;
 }
 

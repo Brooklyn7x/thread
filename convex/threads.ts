@@ -42,6 +42,7 @@ export const getThread = query({
   },
 });
 
+
 export const getThreadByUser = query({
   args: { userId: v.string() },
   handler: async (ctx, args) => {
