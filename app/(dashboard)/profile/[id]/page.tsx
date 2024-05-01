@@ -12,7 +12,6 @@ type Props = {
 };
 
 const ProfileIdPage = ({ params }: Props) => {
-  console.log("render");
   const userId = params.id;
   // const [user, setUser] = useState<User>();
   const user = useQuery(api.threadUser.getByuser, { userId });

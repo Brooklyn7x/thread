@@ -20,11 +20,11 @@ const NavbarActionButton = () => {
     setOpenPopver(!openPopover);
   };
   return (
-    <DropdownMenu open={openPopover} onOpenChange={setOpenPopver}>
+    <DropdownMenu open={openPopover} onOpenChange={setOpenPopver} >
       <DropdownMenuTrigger asChild>
         <ListFilter className="text-muted-foreground hover:text-white" />
       </DropdownMenuTrigger>
-      <DropdownMenuContent className="w-40 rounded-2xl mr-4 bg-neutral-900" align="end" alignOffset={10}>
+      <DropdownMenuContent className="w-40 rounded-2xl mr-4 bg-neutral-900" align="end" alignOffset={5} >
         <ModeToggle  onClosePopover={onClosePopover}/>
         <DropdownMenuSeparator />
         <DropdownMenuItem>

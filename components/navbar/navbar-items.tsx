@@ -7,7 +7,8 @@ const DynamicCreatePost = dynamic(() => import("../modal/create-post-modal"), {
   ssr: false,
 });
 
-const NavbarItems = async (session : any) => {
+const NavbarItems = async () => {
+  const session = await auth();
   
   return (
     <div className="flex items-center justify-between w-full h-full px-4">
@@ -32,7 +33,7 @@ const NavbarItems = async (session : any) => {
         </Link>
       </Button>
       <Button asChild variant={"ghost"} className="h-full" size={"lg"} >
-        <Link href={`/profile/${session.userId}`}>
+        <Link href={`/profile/${session?.userId}`}>
           <UserRound />
         </Link>
       </Button>

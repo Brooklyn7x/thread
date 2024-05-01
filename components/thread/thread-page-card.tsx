@@ -7,6 +7,8 @@ import { useUser } from "@clerk/nextjs";
 import { Thread } from "@/lib/types/type";
 import UserThreadCard from "../user-card/user-image";
 import UserCardName from "../user-card/user-card-name";
+import { Suspense } from "react";
+import ThreadCardButton from "./threads-card-button";
 
 interface PostCardProps {
   threads: Thread;
@@ -28,12 +30,9 @@ export const ThreadPageCard = ({ threads }: PostCardProps) => {
               {createdAtLabel}
             </p>
           </div>
-
-          {userId === user?.id ? (
-            <ThreadActionButton id={threads._id} />
-          ) : (
-            <ThreadOtherAction threadId={threads._id} />
-          )}
+          <Suspense>
+            <ThreadCardButton thread={threads} />
+          </Suspense>
         </div>
         <p className="pb-2 text-sm">{threads.content}</p>
 

@@ -7,7 +7,7 @@ const DashBoardLayout = ({ children }: { children: React.ReactNode }) => {
   return (
     <main>
       <Nav />
-      <div className="max-w-screen-md pt-20 sm:px-20 mx-auto min-h-screen">
+      <div className="max-w-screen-md pt-20 sm:px-20 mx-auto min-h-screen pb-16 sm:pb-0">
         {children}
       </div>
       <Mobilebar />

@@ -17,6 +17,9 @@ import { useMutation } from "convex/react";
 import { ChangeEvent, useState } from "react";
 import { Doc } from "@/convex/_generated/dataModel";
 import { createThread } from "@/convex/thread";
+import Image from "next/image";
+import React from "react";
+import { ValidationError } from "svix";
 
 const formSchema = z.object({
   content: z.string(),
@@ -30,6 +33,16 @@ interface CreateFormProps {
 }
 
 const CreateForm = ({ handleClose }: CreateFormProps) => {
+  const [selectedFile, setSelectedFile] = React.useState<File>();
+  const [fileURL, setFileURL] = React.useState("");
+  const handleFileChange = (event: any) => {
+    const file = event.target.files[0];
+    setSelectedFile(file);
+    const fileURL = URL.createObjectURL(file);
+    setFileURL(fileURL);
+  };
+  console.log(fileURL);
+
   const { user } = useUser();
   const router = useRouter();
   const generateUploadUrl = useMutation(api.thread.generateUploadUrl);
@@ -45,15 +58,12 @@ const CreateForm = ({ handleClose }: CreateFormProps) => {
   const fileRef = form.register("file");
   const onSubmit = async (values: z.infer<typeof formSchema>) => {
     const postUrl = await generateUploadUrl();
-
     const result = await fetch(postUrl, {
       method: "POST",
       headers: { "Content-Type": values.file[0].type },
       body: values.file[0],
     });
-
     const { storageId } = await result.json();
-
     await mutate({
       content: values.content,
       imageUrl: storageId,
@@ -70,88 +80,55 @@ const CreateForm = ({ handleClose }: CreateFormProps) => {
       <form onSubmit={form.handleSubmit(onSubmit)}>
         <div className="w-full sm:max-w-xl">
           <div className="flex w-full px-6 py-4">
-            <div className="pr-2 mt-1">
+            <div className="pr-2">
               <UserAvater />
             </div>
-
             <div className="flex flex-col w-full">
               <div className="flex flex-col w-full">
-                <span className="text-sm mb-2"> {user?.username}</span>
+                <span className="text-sm mb-2 mt-2"> {user?.username}</span>
                 <FormField
                   control={form.control}
                   name="content"
                   render={({ field }) => (
                     <FormItem>
                       <FormControl>
-                        <Input placeholder="start a thread" {...field} />
+                        <Input
+                          placeholder="start a thread"
+                          {...field}
+                          className="border-0"
+                        />
                       </FormControl>
                     </FormItem>
                   )}
                 />
               </div>
-
-              {/* <div className="flex mt-1 mb-4 space-x-2 text-muted-foreground">
-                <span>
-                  <Image className="w-5 h-5" />
-                </span>
-                <span>
-                  <Gift className="w-5 h-5" />
-                </span>
-                <span>
-                  <Image className="w-5 h-5" />
-                </span>
-                <span>
-                  <Gift className="w-5 h-5" />
-                </span>
-              </div> */}
-
               <div className="flex flex-col gap-y-2 mt-5">
-                {/* <FormField
-                  control={form.control}
-                  name="title"
-                  render={({ field }) => (
-                    <FormItem>
-                      <FormControl>
-                        <Input placeholder="Title" {...field} className="" />
-                      </FormControl>
-                    </FormItem>
-                  )}
-                /> */}
-
                 <FormField
                   control={form.control}
                   name="file"
                   render={() => (
                     <FormItem>
                       <FormControl>
-                        <Input type="file" {...fileRef} />
+                        <Input
+                          type="file"
+                          {...fileRef}
+                          className="outline-none border-0"
+                          onChange={handleFileChange}
+                        />
                       </FormControl>
                     </FormItem>
                   )}
                 />
-
-                <Button type="submit" variant={"secondary"}>
+                {selectedFile && (
+                  <Image src={fileURL} alt="image" height={100} width={200} />
+                )}
+                <Button type="submit" variant={"secondary"} disabled={pending}>
                   Submit
                 </Button>
               </div>
             </div>
           </div>
         </div>
-
-        {/* <FormField
-                control={form.control}
-                name="caption"
-                render={({ field }) => (
-                  <FormItem>
-                    <FormLabel>Captions</FormLabel>
-                    <FormControl>
-                      <Input placeholder="caption" {...field} />
-                    </FormControl>
-                    <FormDescription>#</FormDescription>
-                    <FormMessage />
-                  </FormItem>
-                )}
-              /> */}
       </form>
     </Form>
   );

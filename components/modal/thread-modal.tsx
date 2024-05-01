@@ -1,4 +1,3 @@
-import { Button } from "@/components/ui/button";
 import {
   Dialog,
   DialogClose,
@@ -26,7 +25,7 @@ export const ThreadCommentModal = ({ thread }: { thread: Thread }) => {
   return (
     <Dialog open={open} onOpenChange={setOpen}>
       <DialogTrigger asChild className="w-full" onClick={handleClick}>
-        <MessageCircle className="h-4 w-4" />
+        <MessageCircle className="h-5 w-5" />
       </DialogTrigger>
       <DialogContent>
         <ThreadCommentForm thread={thread} handleClose={handleClose} />

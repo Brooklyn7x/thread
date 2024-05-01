@@ -1,7 +1,7 @@
 import { Logo } from "./navbar-logo";
 import NavbarItems from "./navbar-items";
 import NavbarActionButton from "./navbar-action-button";
-import { Session } from "@/lib/auth";
+
 
 const Navbar = (session: any) => {
   return (
@@ -10,7 +10,7 @@ const Navbar = (session: any) => {
         <Logo />
 
         <div className="hidden h-full sm:block p-1">
-          <NavbarItems session={session} />
+          <NavbarItems />
         </div>
 
         <div className="ml-auto sm:ml-0">

@@ -46,16 +46,16 @@ const ThreadButton = ({ thread, id }: ThreadActionButtonProps) => {
   return (
     <div className="flex w-full">
       <button className="p-2 hover:text-gray-600" onClick={handleLikeThread}>
-        <Heart className={cn("h-4 w-4", isLiked && "fill-red-600")} />
+        <Heart className={cn("h-5 w-5", isLiked && "fill-red-600")} />
       </button>
       <button className="p-2">
         <ThreadCommentModal thread={thread} />
       </button>
       <button className="p-2">
-        <Repeat className="w-4 h-4" />
+        <Repeat className="w-5 h-5" />
       </button>
       <button className="p-2">
-        <Send className="w-4 h-4" />
+        <Send className="w-5 h-5" />
       </button>
     </div>
   );

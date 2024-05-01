@@ -52,7 +52,7 @@ export const ThreadOtherAction = ({ threadId }: ActionButtonProps) => {
   return (
     <DropdownMenu>
       <DropdownMenuTrigger asChild>
-        <Ellipsis className="w-5 h-5"/>
+        <Ellipsis className="w-5 h-5 mr-2" />
       </DropdownMenuTrigger>
       <DropdownMenuContent className="w-40" align="end">
         <DropdownMenuItem asChild>
@@ -65,9 +65,13 @@ export const ThreadOtherAction = ({ threadId }: ActionButtonProps) => {
             {isSaved ? "Unsaved" : "Save"}
           </Button>
         </DropdownMenuItem>
+        <DropdownMenuSeparator />
         <DropdownMenuItem>Hide</DropdownMenuItem>
+        <DropdownMenuSeparator />
         <DropdownMenuItem>Mute</DropdownMenuItem>
+        <DropdownMenuSeparator />
         <DropdownMenuItem>Unfollow</DropdownMenuItem>
+        <DropdownMenuSeparator />
         <DropdownMenuItem>Report</DropdownMenuItem>
       </DropdownMenuContent>
     </DropdownMenu>
