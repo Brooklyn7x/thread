@@ -120,7 +120,13 @@ const CreateForm = ({ handleClose }: CreateFormProps) => {
                   )}
                 />
                 {selectedFile && (
-                  <Image src={fileURL} alt="image" height={100} width={200} />
+                  <Image
+                    src={fileURL}
+                    alt="image"
+                    height={100}
+                    width={200}
+                    className="max-w-[300px] max-h-[300px] h-auto w-auto rounded-md border shadow-md"
+                  />
                 )}
                 <Button type="submit" variant={"secondary"} disabled={pending}>
                   Submit

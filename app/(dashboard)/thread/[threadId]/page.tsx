@@ -1,11 +1,9 @@
-"use client";
+"use client"
 import { api } from "@/convex/_generated/api";
 import { useQuery } from "convex/react";
 import { Id } from "@/convex/_generated/dataModel";
-import ThreadPageCard from "@/components/thread/thread-page-card";
-import CommentsItemsList from "@/components/comments/comment-list";
-import { Speator } from "@/components/speator";
 import dynamic from "next/dynamic";
+import Loading from "@/components/auth/loading";
 
 interface PostIdPage {
   params: {
@@ -28,8 +26,8 @@ const PostIdPage = ({ params }: PostIdPage) => {
   const threadId = params.threadId;
   const thread = useQuery(api.thread.getThreadById, { threadId });
   const comments = useQuery(api.comments.getCommentsByThread, { threadId });
-  if (!thread) return null;
-  if (!comments) return null;
+  if (!thread) return <Loading />;
+  if (!comments) return <Loading />;
 
   return (
     <div className="w-full">

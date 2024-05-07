@@ -1,9 +1,7 @@
 "use client";
-import Loading from "@/components/auth/loading";
 import { api } from "@/convex/_generated/api";
-import { useAuth, useUser } from "@clerk/nextjs";
+import {  useUser } from "@clerk/nextjs";
 import { useQuery } from "convex/react";
-import ThreadCard from "../../../components/thread/thread-card";
 import ThreadList from "@/components/thread/thread-list";
 
 const SavedPage = () => {
