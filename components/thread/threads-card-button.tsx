@@ -6,8 +6,9 @@ import { ThreadOtherAction } from "./thread-pop-button";
 const ThreadCardButton = ({ thread }: { thread: Thread }) => {
   const { user } = useUser();
   if (!user) return null;
+  const isOwner = user.id === thread.userId;
 
-  if (user.id === thread.userId) {
+  if (isOwner) {
     return <ThreadActionButton id={thread._id} />;
   } else return <ThreadOtherAction threadId={thread._id} />;
 };

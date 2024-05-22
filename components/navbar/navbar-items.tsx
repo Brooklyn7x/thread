@@ -1,23 +1,38 @@
+"use client";
 import { Button } from "@/components/ui/button";
 import { Heart, HomeIcon, Search, SquarePen, UserRound } from "lucide-react";
 import Link from "next/link";
-import { auth } from "@clerk/nextjs";
+import { auth, useUser } from "@clerk/nextjs";
 import dynamic from "next/dynamic";
+import { usePathname } from "next/navigation";
+import { cn } from "@/lib/utils";
 const DynamicCreatePost = dynamic(() => import("../modal/create-post-modal"), {
   ssr: false,
 });
 
-const NavbarItems = async () => {
-  const session = await auth();
-  
+const NavbarItems = () => {
+  const session = useUser();
+  const pathname = usePathname();
+  const isActive = pathname;
+
   return (
     <div className="flex items-center justify-between w-full h-full px-4">
-      <Button asChild variant={"ghost"} className="h-full" size={"lg"}>
+      <Button
+        asChild
+        variant={"ghost"}
+        className={cn("text-purple-100 h-full", isActive && "fill-blue-400")}
+        size={"lg"}
+      >
         <Link href={"/"}>
           <HomeIcon />
         </Link>
       </Button>
-      <Button asChild variant={"ghost"} className="h-full" size={"lg"}>
+      <Button
+        asChild
+        variant={"ghost"}
+        className={cn("text-purple-100 h-full", isActive && "fill-blue-400")}
+        size={"lg"}
+      >
         <Link href={"/search"}>
           <Search />
         </Link>
@@ -28,12 +43,12 @@ const NavbarItems = async () => {
         </Button>
       </DynamicCreatePost>
       <Button asChild variant={"ghost"} className="h-full" size={"lg"}>
-        <Link href={"/activity"}>
+        <Link href={"/activity"} className={cn(isActive && "text-red-400")}>
           <Heart />
         </Link>
       </Button>
-      <Button asChild variant={"ghost"} className="h-full" size={"lg"} >
-        <Link href={`/profile/${session?.userId}`}>
+      <Button asChild variant={"ghost"} className="h-full" size={"lg"}>
+        <Link href={`/profile/${session?.user?.id}`}>
           <UserRound />
         </Link>
       </Button>

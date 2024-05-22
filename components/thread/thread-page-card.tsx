@@ -9,16 +9,14 @@ import UserThreadCard from "../user-card/user-image";
 import UserCardName from "../user-card/user-card-name";
 import { Suspense } from "react";
 import ThreadCardButton from "./threads-card-button";
+import ThreadTime from "./thread-time";
+import ThreadContent from "./thread-content";
 
 interface PostCardProps {
   threads: Thread;
 }
 
 export const ThreadPageCard = ({ threads }: PostCardProps) => {
-  const userId = threads.userId;
-  const createdAtLabel = formatTime(threads._creationTime);
-  const { user } = useUser();
-
   return (
     <div className="flex flex-col w-full h-auto p-1">
       <div className="flex flex-col flex-1 w-full px-2">
@@ -26,25 +24,13 @@ export const ThreadPageCard = ({ threads }: PostCardProps) => {
           <div className="flex items-center gap-2">
             <UserThreadCard userId={threads.userId} />
             <UserCardName userId={threads.userId} />
-            <p className="pr-1 text-sm text-muted-foreground">
-              {createdAtLabel}
-            </p>
+            <ThreadTime createdAt={threads._creationTime} />
           </div>
           <Suspense>
             <ThreadCardButton thread={threads} />
           </Suspense>
         </div>
-        <p className="pb-2 text-sm">{threads.content}</p>
-
-        {threads.url && (
-          <Image
-            src={threads.url}
-            alt="User_image"
-            height={300}
-            width={300}
-            className="my-2 rounded-md max-h-[380px] max-w-[340px] h-auto w-auto"
-          />
-        )}
+        <ThreadContent content={threads.content} url={threads.url} />
 
         <ThreadButton id={threads._id} thread={threads} />
 

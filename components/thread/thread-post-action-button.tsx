@@ -25,7 +25,7 @@ const ThreadPostActionButton = ({ id }: ActionButtonProps) => {
   const { mutate, pending } = useApiMutation(api.thread.removeThread);
   const threadData = useQuery(api.threads.getThread, { threadId });
 
-  const onDelete = () => {
+  const handleDelete = () => {
     mutate({ id })
       .then(() => toast.success("Thread Deleted"))
       .catch(() => toast.error("Threads failed to delete"));
@@ -38,17 +38,13 @@ const ThreadPostActionButton = ({ id }: ActionButtonProps) => {
         </Button>
       </DropdownMenuTrigger>
       <DropdownMenuContent side="bottom" onClick={(e) => e.stopPropagation()}>
-        {/* <ThreadEditDailog >
-          <Button>Edit</Button>
-        </ThreadEditDailog> */}
-
         <ThreadEditDailog threadId={id} />
 
         <ConfirmModal
           header="Delete Thread ? "
           description="Are you sure ?"
           disabled={pending}
-          onConfirm={onDelete}
+          onConfirm={handleDelete}
         >
           <Button variant={"ghost"} className="w-full">
             Delete{" "}

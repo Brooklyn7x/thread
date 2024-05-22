@@ -51,10 +51,8 @@ export default defineSchema({
     threadId: v.id("threads"),
   }).index("by_thread", ["threadId"]),
 
-  // followers: defineTable({
-  //   followerId: v.id("users"),
-  //   userId: v.id("users"),
-  // })
-  //   .index("by_user", ["userId"])
-  //   .index("by_follower", ["followerId"]),
+  followers: defineTable({
+    userId: v.string(),
+  })
+    .index("by_user", ["userId"])
 });

@@ -39,7 +39,6 @@ export const ThreadCard = ({ threads }: PostCardProps) => {
             <Suspense>
               <ThreadCardButton thread={threads} />
             </Suspense>
-
           </div>
           <p className="pb-2 text-sm">{threads.content}</p>
 
@@ -47,9 +46,9 @@ export const ThreadCard = ({ threads }: PostCardProps) => {
             <Image
               src={threads.url}
               alt="user_image"
-              height={400}
+              height={200}
               width={400}
-              className="my-2 rounded-md max-h-[380px] w-[320px] "
+              className="my-2 rounded-md max-h-[480px] w-[320px] h-auto object-cover"
             />
           )}
 

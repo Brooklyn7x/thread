@@ -85,9 +85,15 @@ export const getSavedThreadByUser = query({
 
     const threads = await getAllOrThrow(ctx.db, ids);
 
-    return threads.map((thread) => ({
-      ...thread,
+    const threadsWithUrls = await Promise.all(threads.map(async (thread) => {
+      const imageUrl = thread.imageUrl ? await ctx.storage.getUrl(thread.imageUrl) : null;
+      return {
+        ...thread,
+        url: imageUrl,
+      };
     }));
+
+    return threadsWithUrls
   },
 });
 
