@@ -1,18 +1,12 @@
-"use client";
-import { Input } from "@/components/ui/input";
-import { api } from "@/convex/_generated/api";
-import { useQuery } from "convex/react";
-import { SearchIcon, X } from "lucide-react";
-import { useCallback, useEffect, useState } from "react";
-import SearchPop from "./search-pop";
 import { useDebounce } from "@/hooks/use-debounce";
-import React from "react";
+import { useQuery } from "convex/react";
+import { useState } from "react";
 
-const SearchInput = () => {
-  const [input, setInput] = useState("");
+const SearchBar = () => {
+    const [input, setInput] = useState("");
   const name = useDebounce(input, 200);
 
-  const searchData = useQuery(api.threads.getSearchs, { name });
+ 
 
   const onClear = useCallback(() => {
     setInput("");
@@ -40,10 +34,7 @@ const SearchInput = () => {
           onClick={onClear}
         />
       )}
-      {/* <SearchPop searchData={searchData} /> */}
-      <MemoizedSearchPop searchData={searchData} />
-    </div>
-  );
-};
-const MemoizedSearchPop = React.memo(SearchPop);
-export default SearchInput;
+      </div>
+}
+
+export default SearchBar;

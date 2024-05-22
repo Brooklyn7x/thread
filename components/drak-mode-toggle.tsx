@@ -1,10 +1,7 @@
-"use client";
+// ThemeToggle.tsx
 
 import * as React from "react";
-
 import { useTheme } from "next-themes";
-
-import { Button } from "@/components/ui/button";
 import {
   DropdownMenu,
   DropdownMenuContent,
@@ -13,25 +10,41 @@ import {
 } from "@/components/ui/dropdown-menu";
 import { MoonIcon, SunIcon } from "lucide-react";
 
-export function ModeToggle({ onClosePopover }: { onClosePopover: () => void }) {
+// eslint-disable-next-line react/display-name
+const ThemeToggle = ({ onClick }: { onClick: () => void }) => {
   const { setTheme } = useTheme();
+
+  const handleSetLightTheme = React.useCallback(
+    () => setTheme("light"),
+    [setTheme]
+  );
+  const handleSetDarkTheme = React.useCallback(
+    () => setTheme("dark"),
+    [setTheme]
+  );
+  const handleSetSystemTheme = React.useCallback(
+    () => setTheme("system"),
+    [setTheme]
+  );
 
   return (
     <DropdownMenu>
-      <DropdownMenuTrigger className="p-2 text-sm" onClick={onClosePopover}>
-        Appearance
+      <DropdownMenuTrigger className="p-2 text-sm" onClick={onClick}>
+        Theme
       </DropdownMenuTrigger>
       <DropdownMenuContent align="start" className="mr-[180px] -mt-10">
-        <DropdownMenuItem onClick={() => setTheme("light")}>
-          <MoonIcon />
+        <DropdownMenuItem onClick={handleSetLightTheme}>
+          <MoonIcon /> Light
         </DropdownMenuItem>
-        <DropdownMenuItem onClick={() => setTheme("dark")}>
-         <SunIcon />
+        <DropdownMenuItem onClick={handleSetDarkTheme}>
+          <SunIcon /> Dark
         </DropdownMenuItem>
-        <DropdownMenuItem onClick={() => setTheme("system")}>
+        <DropdownMenuItem onClick={handleSetSystemTheme}>
           System
         </DropdownMenuItem>
       </DropdownMenuContent>
     </DropdownMenu>
   );
-}
+};
+
+export default React.memo(ThemeToggle);

@@ -15,7 +15,7 @@ const MobileBottombar = ({ userId }: { userId: string | undefined }) => {
       <Button
         variant={"ghost"}
         asChild
-        className={cn("text-purple-100 h-full", isActive && "fill-blue-400")}
+        className={cn("text-purple-100 h-full", isActive)}
       >
         <Link href={"/"}>
           <HomeIcon />

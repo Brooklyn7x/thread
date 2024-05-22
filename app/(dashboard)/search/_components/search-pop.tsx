@@ -5,6 +5,7 @@ import Link from "next/link";
 import { memo } from "react";
 
 const SearchPop = ({ searchData }: any) => {
+  console.log("renderPOp");
   if (!searchData) return null;
   return (
     <div className="w-full relative">
@@ -15,7 +16,7 @@ const SearchPop = ({ searchData }: any) => {
               <div key={data} className="flex items-center justify-between p-2">
                 <div className="flex gap-2">
                   <Avatar>
-                    <AvatarImage src={"/as.jpeg"} />
+                    <AvatarImage src={"/t1.jpeg"} />
                     <AvatarFallback>CN</AvatarFallback>
                   </Avatar>
                   <Link
