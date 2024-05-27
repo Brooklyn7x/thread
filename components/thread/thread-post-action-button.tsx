@@ -14,16 +14,13 @@ import { useApiMutation } from "@/hooks/use-api-mutation";
 import { Ellipsis } from "lucide-react";
 import { toast } from "sonner";
 import ThreadEditDailog from "../../app/(dashboard)/thread/_componets/thread-edit-dailog";
-import { useQuery } from "convex/react";
 
 interface ActionButtonProps {
   id: Id<"threads">;
 }
 
 const ThreadPostActionButton = ({ id }: ActionButtonProps) => {
-  const threadId = id;
   const { mutate, pending } = useApiMutation(api.thread.removeThread);
-  const threadData = useQuery(api.threads.getThread, { threadId });
 
   const handleDelete = () => {
     mutate({ id })
@@ -37,7 +34,8 @@ const ThreadPostActionButton = ({ id }: ActionButtonProps) => {
           <Ellipsis />
         </Button>
       </DropdownMenuTrigger>
-      <DropdownMenuContent side="bottom" onClick={(e) => e.stopPropagation()}>
+
+      <DropdownMenuContent side="bottom">
         <ThreadEditDailog threadId={id} />
 
         <ConfirmModal
@@ -47,7 +45,7 @@ const ThreadPostActionButton = ({ id }: ActionButtonProps) => {
           onConfirm={handleDelete}
         >
           <Button variant={"ghost"} className="w-full">
-            Delete{" "}
+            Delete
           </Button>
         </ConfirmModal>
       </DropdownMenuContent>

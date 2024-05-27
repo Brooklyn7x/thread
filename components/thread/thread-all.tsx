@@ -15,6 +15,7 @@ const ThreadAll = () => {
 
 async function ThreadRSC() {
   const data = useQuery(api.threads.getAll);
+
   if (!data) return <Loading />;
   return(
     <ThreadList threads={data} />

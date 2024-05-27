@@ -1,32 +1,22 @@
 "use client";
 
-import { Button } from "@/components/ui/button";
-import {
-  Dialog,
-  DialogClose,
-  DialogContent,
-  DialogTrigger,
-} from "@/components/ui/dialog";
+import usePostModal from "@/hooks/use-post-modal";
+import Modal from "./modal";
 import CreateForm from "../thread/thread-create-form";
-import { useState } from "react";
 
-interface CreatePostProps {
-  children: React.ReactNode;
-}
+const CreatePostModal = () => {
+  const post = usePostModal();
 
-const CreatePostDialog = ({ children }: CreatePostProps) => {
-  const [open, setOpen] = useState(false);
-  const handleClose = () => {
-    setOpen(false);
-  };
+  const body = <CreateForm handleClose={post.onClose} />;
+
   return (
-    <Dialog open={open} onOpenChange={setOpen}>
-      <DialogTrigger asChild>{children}</DialogTrigger>
-      <DialogContent className="px-4">
-        <CreateForm handleClose={handleClose} />
-      </DialogContent>
-    </Dialog>
+    <Modal
+      isOpen={post.isOpen}
+      onClose={post.onClose}
+      title="Create Post"
+      body={body}
+    />
   );
 };
 
-export default CreatePostDialog;
+export default CreatePostModal;

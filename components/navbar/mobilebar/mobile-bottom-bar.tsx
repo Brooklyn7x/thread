@@ -1,6 +1,6 @@
 "use client";
 import Link from "next/link";
-import CreatePostDialog from "@/components/modal/create-post-modal";
+import CreatePostDialog from "@/components/modal/create-post-modala";
 import { Button } from "@/components/ui/button";
 import { cn } from "@/lib/utils";
 import { Heart, HomeIcon, Search, SquarePen, UserRound } from "lucide-react";

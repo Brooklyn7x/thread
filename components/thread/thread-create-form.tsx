@@ -7,19 +7,15 @@ import { api } from "@/convex/_generated/api";
 import { useApiMutation } from "@/hooks/use-api-mutation";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { useRouter } from "next/navigation";
-import { FieldName, useForm } from "react-hook-form";
+import { useForm } from "react-hook-form";
 import { z } from "zod";
 import { toast } from "sonner";
-import { Avatar, AvatarFallback, AvatarImage } from "@/components/ui/avatar";
 import { useUser } from "@clerk/nextjs";
 import UserAvater from "@/components/user-card/user-avatar";
 import { useMutation } from "convex/react";
-import { ChangeEvent, useState } from "react";
-import { Doc } from "@/convex/_generated/dataModel";
-import { createThread } from "@/convex/thread";
+
 import Image from "next/image";
 import React from "react";
-import { ValidationError } from "svix";
 
 const formSchema = z.object({
   content: z.string(),
@@ -41,7 +37,6 @@ const CreateForm = ({ handleClose }: CreateFormProps) => {
     const fileURL = URL.createObjectURL(file);
     setFileURL(fileURL);
   };
-  console.log(fileURL);
 
   const { user } = useUser();
   const router = useRouter();
@@ -129,7 +124,7 @@ const CreateForm = ({ handleClose }: CreateFormProps) => {
                   />
                 )}
                 <Button type="submit" variant={"secondary"} disabled={pending}>
-                  Submit
+                  Post
                 </Button>
               </div>
             </div>

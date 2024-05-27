@@ -1,5 +1,5 @@
 import { Button } from "@/components/ui/button";
-import CreatePostDialog from "../modal/create-post-modal";
+import CreatePostDialog from "../modal/create-post-modala";
 
 export const CreateThreadDailogx = () => {
   return (
