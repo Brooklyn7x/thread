@@ -1,10 +1,15 @@
-import RandomPeople from "./_components/random-people";
-import SearchInput from "./_components/search-input";
+import dynamic from "next/dynamic";
+const SearchInput = dynamic(() => import("./_components/search-input"), {
+  ssr: false,
+});
+
+const RandomPeople = dynamic(() => import("./_components/random-people"), {
+  ssr: false,
+});
 
 const SearchPage = () => {
   return (
     <div className="w-full">
-      {/* <SearchBar /> */}
       <SearchInput />
       <RandomPeople />
     </div>

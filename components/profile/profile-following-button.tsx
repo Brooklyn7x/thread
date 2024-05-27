@@ -3,6 +3,7 @@ import { Button } from "../ui/button";
 import { api } from "@/convex/_generated/api";
 import { useApiMutation } from "@/hooks/use-api-mutation";
 import { toast } from "sonner";
+import { memo } from "react";
 
 const ProfileFollowingButton = ({ userId }: { userId: string }) => {
   const { mutate, pending } = useApiMutation(api.follower.follow);
@@ -29,4 +30,4 @@ const ProfileFollowingButton = ({ userId }: { userId: string }) => {
   );
 };
 
-export default ProfileFollowingButton;
+export default memo(ProfileFollowingButton);
