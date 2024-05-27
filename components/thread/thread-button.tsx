@@ -33,7 +33,10 @@ const ThreadButton = ({ thread, id }: ThreadActionButtonProps) => {
   const Liked = useQuery(api.like.getLike, { threadId }) || [];
   const isLiked = !!Liked[0]?._id;
 
-  const handleComment = () => {
+  const handleComment = (
+    event: React.MouseEvent<HTMLButtonElement, MouseEvent>
+  ) => {
+    event.preventDefault();
     openModal(thread);
   };
 
