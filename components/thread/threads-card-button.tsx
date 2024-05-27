@@ -9,7 +9,7 @@ const ThreadCardButton = ({ thread }: { thread: Thread }) => {
   const isOwner = user.id === thread.userId;
 
   if (isOwner) {
-    return <ThreadActionButton id={thread._id} />;
+    return <ThreadActionButton id={thread._id} thread={thread} />;
   } else return <ThreadOtherAction threadId={thread._id} />;
 };
 

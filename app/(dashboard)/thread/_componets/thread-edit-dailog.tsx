@@ -15,7 +15,9 @@ interface ThreadProps {
 }
 const ThreadEditDailog = ({ threadId }: { threadId: Id<"threads"> }) => {
   const [open, setOpen] = useState(false);
+  
   const threadData = useQuery(api.threads.getThread, { threadId });
+
   const handleClose = () => {
     setOpen(false);
   };

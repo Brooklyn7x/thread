@@ -5,6 +5,7 @@ import { Button } from "@/components/ui/button";
 import {
   DropdownMenu,
   DropdownMenuContent,
+  DropdownMenuItem,
   DropdownMenuSeparator,
   DropdownMenuTrigger,
 } from "@/components/ui/dropdown-menu";
@@ -15,14 +16,25 @@ import { Ellipsis } from "lucide-react";
 import { toast } from "sonner";
 import ThreadEditDailog from "../../app/(dashboard)/thread/_componets/thread-edit-dailog";
 import { useRouter } from "next/navigation";
+import useEditModal from "@/hooks/use-edit-modal";
+import { Thread } from "@/lib/types/type";
+import EditPostModal from "../modal/edit-post-modal";
 
 interface ActionButtonProps {
   id: Id<"threads">;
+  thread: Thread;
 }
 
-const ThreadActionButton = ({ id }: ActionButtonProps) => {
+const ThreadActionButton = ({ id, thread }: ActionButtonProps) => {
   const { mutate, pending } = useApiMutation(api.thread.removeThread);
+  const { openModal } = useEditModal();
   const router = useRouter();
+
+  const handleEdit = (e: React.MouseEvent<HTMLDivElement, MouseEvent>) => {
+    e.preventDefault();
+    e.stopPropagation();
+    openModal(thread);
+  };
 
   const onDelete = () => {
     mutate({ id })
@@ -44,7 +56,8 @@ const ThreadActionButton = ({ id }: ActionButtonProps) => {
         align="end"
         alignOffset={10}
       >
-        <ThreadEditDailog threadId={id} />
+        {/* <ThreadEditDailog threadId={id} /> */}
+        <DropdownMenuItem onClick={handleEdit}>Edit</DropdownMenuItem>
         <DropdownMenuSeparator />
         <ConfirmModal
           header="Delete Thread ? "

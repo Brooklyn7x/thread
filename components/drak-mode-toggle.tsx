@@ -10,7 +10,7 @@ import {
 } from "@/components/ui/dropdown-menu";
 import { MoonIcon, SunIcon } from "lucide-react";
 
-// eslint-disable-next-line react/display-name
+
 const ThemeToggle = ({ onClick }: { onClick: () => void }) => {
   const { setTheme } = useTheme();
 

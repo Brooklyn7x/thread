@@ -5,6 +5,9 @@ import { ThemeProvider } from "@/components/theme-provider";
 import { ConvexClientProvider } from "@/app/provider";
 import { Toaster } from "@/components/ui/sonner";
 import { Pen } from "lucide-react";
+import CreatePostModal from "@/components/modal/create-post-modal";
+import EditPostModal from "@/components/modal/edit-post-modal";
+import CommentModal from "@/components/modal/comment-modalz";
 
 const inter = Inter({ subsets: ["latin"] });
 
@@ -22,13 +25,21 @@ export default function RootLayout({
     <html lang="en">
       <body className={inter.className}>
         <ConvexClientProvider>
+          <CreatePostModal />
+          <EditPostModal />
+          <CommentModal />
           <ThemeProvider
             attribute="class"
             defaultTheme="system"
             enableSystem
             disableTransitionOnChange
           >
-            <Toaster theme="light" position="bottom-center" closeButton richColors />
+            <Toaster
+              theme="light"
+              position="bottom-center"
+              closeButton
+              richColors
+            />
             {children}
           </ThemeProvider>
         </ConvexClientProvider>

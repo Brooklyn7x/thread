@@ -6,6 +6,7 @@ interface ThreadsProps {
 }
 
 const ThreadList = ({ threads }: ThreadsProps) => {
+  
   return (
     <div className="w-full px-2">
       {threads.length > 0 ? (
