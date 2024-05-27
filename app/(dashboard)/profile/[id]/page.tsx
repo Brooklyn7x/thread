@@ -5,7 +5,6 @@ import { useQuery } from "convex/react";
 import { api } from "@/convex/_generated/api";
 import ProfileHeader from "@/components/profile/profile-header";
 import ProfileFollower from "@/components/profile/profile-follower";
-import { Button } from "@/components/ui/button";
 import ProfileFollowingButton from "@/components/profile/profile-following-button";
 
 type Props = {
@@ -16,7 +15,6 @@ type Props = {
 
 const ProfileIdPage = ({ params }: Props) => {
   const userId = params.id;
-
   const user = useQuery(api.threadUser.getByuser, { userId });
 
   return (

@@ -8,8 +8,6 @@ interface LikeButtonsProps {
 }
 
 const LikeButton = ({ onClick, isLiked }: LikeButtonsProps) => {
-  console.log('Liked Buttn render');
-  
   return (
     <div>
       <button className="p-2 hover:text-gray-600" onClick={onClick}>

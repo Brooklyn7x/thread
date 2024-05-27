@@ -1,5 +1,5 @@
 import { Thread } from "@/lib/types/type";
-import create from "zustand";
+import { create } from 'zustand'
 
 interface CommentModalProps {
   isOpen: boolean;
