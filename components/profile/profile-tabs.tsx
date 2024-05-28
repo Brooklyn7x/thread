@@ -1,37 +1,65 @@
-import { Button } from "@/components/ui/button";
-import { Input } from "@/components/ui/input";
-import { Label } from "@/components/ui/label";
-import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
+"use client";
 
+import { useState, useEffect } from "react";
+import dynamic from "next/dynamic";
+import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
 import { useQuery } from "convex/react";
 import { api } from "@/convex/_generated/api";
-import ThreadList from "../thread/thread-list";
-import CommentsItemsList from "../comments/comment-list";
+
+const ThreadList = dynamic(
+  () => import("../thread/thread-list").then((mod) => mod.default),
+  { ssr: false }
+);
+const CommentsItemsList = dynamic(
+  () => import("../comments/comment-list").then((mod) => mod.default),
+  { ssr: false }
+);
 
 interface Props {
   userId: string;
 }
 
-export  function ProfileTabs({ userId }: Props) {
-  const thread = useQuery(api.threads.getThreadByUser, { userId });
-  const comment = useQuery(api.comments.getCommentsByUser, { userId });
-  if (!thread) return null;
-  if (!comment) return null;
+export function ProfileTabs({ userId }: Props) {
+  const [activeTab, setActiveTab] = useState("threads");
+
+  const threadQuery = useQuery(api.threads.getThreadByUser, { userId });
+  const commentQuery = useQuery(api.comments.getCommentsByUser, { userId });
+  const [threads, setThreads] = useState<any>();
+  const [comments, setComments] = useState<any>();
+
+  useEffect(() => {
+    if (activeTab === "threads" && !threads) {
+      setThreads(threadQuery);
+    }
+    if (activeTab === "replies" && !comments) {
+      setComments(commentQuery);
+    }
+  }, [activeTab, threadQuery, commentQuery, threads, comments]);
 
   return (
-    <Tabs defaultValue="threads" className="w-full">
+    <Tabs
+      defaultValue="threads"
+      className="w-full"
+      onValueChange={setActiveTab}
+    >
       <TabsList className="grid grid-cols-3">
         <TabsTrigger value="threads">Threads</TabsTrigger>
         <TabsTrigger value="replies">Replies</TabsTrigger>
         <TabsTrigger value="reposts">Reposts</TabsTrigger>
       </TabsList>
       <TabsContent value="threads">
-        <ThreadList threads={thread} />
+        {threads ? <ThreadList threads={threads} /> : <div>Loading...</div>}
       </TabsContent>
       <TabsContent value="replies">
-        <CommentsItemsList comments={comment} />
+        {comments ? (
+          <CommentsItemsList comments={comments} />
+        ) : (
+          <div>Loading...</div>
+        )}
       </TabsContent>
-      <TabsContent value="reposts">{/* <PostItems /> */}</TabsContent>
+      <TabsContent value="reposts">
+        {/* Add content for reposts when implemented */}
+      </TabsContent>
     </Tabs>
   );
 }
