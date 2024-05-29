@@ -20,6 +20,7 @@ import type * as file from "../file.js";
 import type * as follower from "../follower.js";
 import type * as http from "../http.js";
 import type * as like from "../like.js";
+import type * as notifications from "../notifications.js";
 import type * as saved from "../saved.js";
 import type * as thread from "../thread.js";
 import type * as threadUser from "../threadUser.js";
@@ -42,6 +43,7 @@ declare const fullApi: ApiFromModules<{
   follower: typeof follower;
   http: typeof http;
   like: typeof like;
+  notifications: typeof notifications;
   saved: typeof saved;
   thread: typeof thread;
   threadUser: typeof threadUser;

@@ -53,7 +53,7 @@ const NavbarItems = () => {
       </Button>
       <Button asChild variant={"ghost"} className="h-full" size={"lg"}>
         <Link
-          href={"/activity"}
+          href={`/activity/${session?.user?.id}`}
           className={cn("", pathname === "/activity" && "bg-secondary")}
         >
           <Heart />
