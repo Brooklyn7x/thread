@@ -39,6 +39,21 @@ export const createlike = mutation({
       userId: args.userId,
       threadId: args.threadId,
     });
+
+    const thread = await ctx.db.get(args.threadId);
+
+    if (!thread) {
+      throw new Error("Thread not found");
+    }
+
+    await ctx.db.insert("notifications", {
+      type: "like",
+      userId: thread.userId,
+      actorId: args.userId,
+      entityId: args.threadId,
+      entityType: "like",
+      isRead: false,
+    });
   },
 });
 
