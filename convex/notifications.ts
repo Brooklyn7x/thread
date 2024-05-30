@@ -29,7 +29,7 @@ export const fetchNotifications = query({
     const notifications = await ctx.db
       .query("notifications")
       .withIndex("by_user", (qry) => qry.eq("userId", args.userId))
-      .order("asc")
+      .order("desc")
       .collect();
     return notifications;
   },

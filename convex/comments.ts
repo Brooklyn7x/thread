@@ -1,5 +1,6 @@
 import { v } from "convex/values";
 import { mutation, query } from "./_generated/server";
+import { threadId } from "worker_threads";
 
 // export const create = mutation({ args: {}, handler: async (ctx, args) => {} });
 
@@ -14,12 +15,31 @@ export const createComments = mutation({
 
     if (!identity) throw new Error("Unauthrozied");
 
-    //check thread details
+    const thread = await ctx.db.get(args.id);
+
+    if (!thread) {
+      throw new Error("Thread not found");
+    }
 
     await ctx.db.insert("comments", {
       threadId: args.id,
       userId: args.userId,
       comments: args.comments,
+    });
+
+    const comment = await ctx.db.get(args.id);
+
+    if (!comment) {
+      throw new Error("Thread not found");
+    }
+
+    await ctx.db.insert("notifications", {
+      type: "comment",
+      userId: thread.userId,
+      actorId: args.userId,
+      entityId: args.id,
+      entityType: "comment",
+      isRead: false,
     });
   },
 });

@@ -20,7 +20,6 @@ export default defineSchema({
     imageUrl: v.id("_storage"),
     url: v.optional(v.string()),
   }).index("by_user", ["userId"]),
-  // .index("by_threadId", ["threads"]),
 
   comments: defineTable({
     threadId: v.id("threads"),
@@ -51,9 +50,13 @@ export default defineSchema({
     threadId: v.id("threads"),
   }).index("by_thread", ["threadId"]),
 
-  followers: defineTable({
-    userId: v.string(),
-  }).index("by_user", ["userId"]),
+  follow: defineTable({
+    followerId: v.string(),
+    followingId: v.string(),
+  })
+    .index("by_follower", ["followerId"])
+    .index("by_following", ["followingId"])
+    .index("by_follower_and_following", ["followerId", "followingId"]),
 
   notifications: defineTable({
     type: v.string(),
