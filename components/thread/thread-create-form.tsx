@@ -73,14 +73,14 @@ const CreateForm = ({ handleClose }: CreateFormProps) => {
   return (
     <Form {...form}>
       <form onSubmit={form.handleSubmit(onSubmit)}>
-        <div className="w-full sm:max-w-xl">
-          <div className="flex w-full px-6 py-4">
-            <div className="pr-2">
-              <UserAvater />
-            </div>
+        <div className="w-full sm:max-w-lg">
+          <div className="flex w-full py-4">
             <div className="flex flex-col w-full">
-              <div className="flex flex-col w-full">
-                <span className="text-sm mb-2 mt-2"> {user?.username}</span>
+            <div className="flex gap-2 place-items-end">
+              <UserAvater />
+              <span className="text-sm mb-2 mt-2 font-bold"> {user?.username?.toUpperCase()}</span>
+            </div>
+              <div className="flex flex-col w-full gap-2 pt-6">
                 <FormField
                   control={form.control}
                   name="content"
@@ -90,7 +90,7 @@ const CreateForm = ({ handleClose }: CreateFormProps) => {
                         <Input
                           placeholder="start a thread"
                           {...field}
-                          className="border-0"
+                          className=""
                         />
                       </FormControl>
                     </FormItem>
@@ -107,7 +107,7 @@ const CreateForm = ({ handleClose }: CreateFormProps) => {
                         <Input
                           type="file"
                           {...fileRef}
-                          className="outline-none border-0"
+                          placeholder="select an image"
                           onChange={handleFileChange}
                         />
                       </FormControl>
@@ -120,12 +120,13 @@ const CreateForm = ({ handleClose }: CreateFormProps) => {
                     alt="image"
                     height={100}
                     width={200}
-                    className="max-w-[300px] max-h-[300px] h-auto w-auto rounded-md border shadow-md"
+                    className="max-w-[300px] max-h-[300px] h-auto w-full rounded-md border shadow-md"
                   />
                 )}
-                <Button type="submit" variant={"secondary"} disabled={pending}>
+                <Button type="submit" variant={"secondary"} disabled={pending} className="pt-2">
                   Post
                 </Button>
+                
               </div>
             </div>
           </div>

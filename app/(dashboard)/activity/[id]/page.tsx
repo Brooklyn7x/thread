@@ -1,8 +1,9 @@
 "use client";
 
-import { api } from "@/convex/_generated/api";
+import UserCardName from "@/components/user-card/user-card-name";
+import UserImage from "@/components/user-card/user-image";
 import useNotificationStore from "@/hooks/use-notification";
-import { useQuery } from "convex/react";
+import useRealTimeNotifications from "@/hooks/use-real-notification";
 
 type Props = {
   params: {
@@ -12,18 +13,10 @@ type Props = {
 
 const ActivityPage = ({ params }: Props) => {
   const userId = params.id;
-  const notifications = useQuery(api.notifications.fetchNotifications, {
-    userId,
-  });
-
-  if (!notifications) return null;
-
-  console.log(notifications);
-
-  //   useNotificationStore.setState({ notifications });
-
+  useRealTimeNotifications(userId);
+  const notifications = useNotificationStore((state) => state.notifications);
   return (
-    <div className="max-w-lg mx-auto mt-8">
+    <div className="max-w-sm md:max-w-lg mx-auto mt-8 p-2">
       <h2 className="text-2xl font-bold mb-4">Notifications</h2>
       <ul>
         {notifications.map((notification: any) => (
@@ -43,18 +36,18 @@ const renderNotification = (notification: any) => {
   switch (notification.type) {
     case "like":
       return (
-        <div>
-          <h1 className="text-white-500">
-            {notification.actorId} {""}
+        <div className="flex gap-4 items-center">
+            <UserImage userId={notification.actorId}/>
+            <UserCardName userId={notification.actorId}/>
             <span className="text-neutral-400">liked your post ❤️</span>
-          </h1>
         </div>
       );
     case "comment":
       return (
-        <div>
-          <h1 className="text-green-500">{notification.actorId}</h1> commented
-          on your post.
+        <div className="flex gap-4 items-center">
+            <UserImage userId={notification.actorId}/>
+            <UserCardName userId={notification.actorId}/>
+            <span className="text-neutral-400">Comment your post ❤️</span>
         </div>
       );
     default:
