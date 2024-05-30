@@ -27,11 +27,9 @@ const ThreadButton = ({ thread, id }: ThreadActionButtonProps) => {
   const { openModal } = useCommentModal();
   const threadId = id;
   const { userId } = useAuth();
-  const { mutate: like } = useApiMutation(api.like.createlike);
-  const { mutate: unlike } = useApiMutation(api.like.removeLike);
-
-  const Liked = useQuery(api.like.getLike, { threadId }) || [];
-  const isLiked = !!Liked[0]?._id;
+  const { mutate: toggleLike  } = useApiMutation(api.like.toogleLike);
+  const likes = useQuery(api.like.getLike, { threadId }) || [];
+  const isLiked = !!likes.find((like) => like.userId === userId);
 
   const handleComment = (
     event: React.MouseEvent<HTMLButtonElement, MouseEvent>
@@ -43,19 +41,14 @@ const ThreadButton = ({ thread, id }: ThreadActionButtonProps) => {
   const handleLikeThread = useCallback(
     (event: React.MouseEvent<HTMLButtonElement, MouseEvent>) => {
       event.preventDefault();
-      if (!isLiked) {
-        like({ threadId, userId })
-          .then(() => toast.success("Liked the thread"))
-          .catch(() => toast.error("Try again."));
-      } else {
-        unlike({ threadId, userId })
-          .then(() => toast.success("Unliked the thread"))
-          .catch(() => toast.error("Try again."));
-      }
+      toggleLike({ threadId, userId })
+        .then(() => toast.success(isLiked ? "Unliked the thread" : "Liked the thread"))
+        .catch(() => toast.error("Try again."));
     },
-    [isLiked, like, unlike, threadId, userId]
+    [isLiked, toggleLike, threadId, userId]
   );
-  if (!Liked) return null;
+  
+  if (!likes) return null;
 
   return (
     <div className="flex w-full">

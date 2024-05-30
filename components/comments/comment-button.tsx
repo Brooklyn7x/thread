@@ -10,42 +10,36 @@ import { toast } from "sonner";
 import CommentModal from "@/components/modal/comment-modal";
 import { Comment } from "@/lib/types/type";
 import { Id } from "@/convex/_generated/dataModel";
+import { useCallback } from "react";
+import LikeButton from "../thread/buttons/like-button";
 
 interface ThreadActionButtonProps {
   comment: Comment;
-  id: Id<"threads">;
+  threadId: Id<"threads">;
 }
 
-const CommentButton = ({ comment, id }: ThreadActionButtonProps) => {
-  const threadId = id;
+const CommentButton = ({ comment, threadId }: ThreadActionButtonProps) => {
   const { userId } = useAuth();
-  const { mutate: like } = useApiMutation(api.like.createlike);
-  const { mutate: unlike } = useApiMutation(api.like.removeLike);
-  const Liked = useQuery(api.like.getLike, { threadId });
-  if (!Liked) return null;
-  const isLiked = !!Liked[0]?._id;
+  const { mutate: toggleLike } = useApiMutation(api.like.toogleLike);
+  const likes = useQuery(api.like.getLike, { threadId }) || [];
+  const isLiked = !!likes.find((like) => like.userId === userId);
 
-  const handleLikeThread = (
-    event: React.MouseEvent<HTMLButtonElement, MouseEvent>
-  ) => {
-    event.stopPropagation();
-    event.preventDefault();
-    if (!isLiked) {
-      like({ threadId, userId })
-        .then(() => toast.success("Liked the thread"))
-        .catch(() => toast.error("try again."));
-    } else {
-      unlike({ threadId, userId }).then(() => {
-        toast.success("UnLiked the thread");
-      });
-    }
-  };
+  const handleLikeThread = useCallback(
+    (event: React.MouseEvent<HTMLButtonElement, MouseEvent>) => {
+      event.preventDefault();
+      toggleLike({ threadId, userId })
+        .then(() =>
+          toast.success(isLiked ? "Unliked the comment" : "Liked the comment")
+        )
+        .catch(() => toast.error("Try again."));
+    },
+    [isLiked, toggleLike, threadId, userId]
+  );
 
   return (
     <div className="flex w-full">
-      <button className="p-2 hover:text-gray-600" onClick={handleLikeThread}>
-        <Heart className={cn("h-4 w-4", isLiked && "fill-red-600")} />
-      </button>
+      <LikeButton isLiked={isLiked} onClick={() => {}} />
+
       <button className="p-2">
         <CommentModal comment={comment} />
       </button>

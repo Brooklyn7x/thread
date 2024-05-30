@@ -14,11 +14,9 @@ import { Id } from "@/convex/_generated/dataModel";
 import { useApiMutation } from "@/hooks/use-api-mutation";
 import { Ellipsis } from "lucide-react";
 import { toast } from "sonner";
-import ThreadEditDailog from "../../app/(dashboard)/thread/_componets/thread-edit-dailog";
 import { useRouter } from "next/navigation";
 import useEditModal from "@/hooks/use-edit-modal";
 import { Thread } from "@/lib/types/type";
-import EditPostModal from "../modal/edit-post-modal";
 
 interface ActionButtonProps {
   id: Id<"threads">;

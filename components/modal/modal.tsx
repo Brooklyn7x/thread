@@ -51,7 +51,7 @@ const Modal = ({
 
   return (
     <Dialog open={showModal} onOpenChange={handleClose}>
-      <DialogContent className="px-4">
+      <DialogContent className="max-w-[300px] sm:max-w-md rounded-md">
         <DialogHeader>
           <DialogTitle>{title}</DialogTitle>
         </DialogHeader>

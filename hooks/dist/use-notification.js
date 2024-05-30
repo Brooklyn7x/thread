@@ -10,10 +10,17 @@ exports.__esModule = true;
 var zustand_1 = require("zustand");
 var useNotificationStore = zustand_1.create(function (set) { return ({
     notifications: [],
+    hasLoaded: false,
+    setNotifications: function (notifications) { return set({ notifications: notifications }); },
     addNotification: function (notification) {
-        return set(function (state) { return ({
-            notifications: __spreadArrays(state.notifications, [notification])
-        }); });
-    }
+        return set(function (state) {
+            var exists = state.notifications.some(function (n) { return n._id === notification._id; });
+            if (!exists) {
+                return { notifications: __spreadArrays(state.notifications, [notification]) };
+            }
+            return state;
+        });
+    },
+    setHasLoaded: function (hasLoaded) { return set({ hasLoaded: hasLoaded }); }
 }); });
 exports["default"] = useNotificationStore;

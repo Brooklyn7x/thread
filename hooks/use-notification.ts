@@ -15,28 +15,27 @@ interface Notification {
 
 interface NotificationStore {
   notifications: Notification[];
+  hasLoaded: boolean;
+  setNotifications: (notifications: Notification[]) => void;
   addNotification: (notification: Notification) => void;
-  //   markNotificationAsRead: (notificationsId: string) => void;
+  setHasLoaded: (hasLoaded: boolean) => void;
 }
 
 const useNotificationStore = create<NotificationStore>((set) => ({
   notifications: [],
-  addNotification: (notification) =>
-    set((state) => ({
-      notifications: [...state.notifications, notification],
-    })),
-  //   markNotificationAsRead: async (notificationId) => {
-  //     try {
-  //       await markNotificationAsRead({ notificationId,  });
-  //       set((state) => ({
-  //         notifications: state.notifications.map((notif) =>
-  //           notif.id === notificationId ? { ...notif, isRead: true } : notif
-  //         ),
-  //       }));
-  //     } catch (error) {
-  //       console.error("Failed to mark notification as read:", error);
-  //     }
-  //   },
+  hasLoaded: false,
+  setNotifications: (notifications) => set({ notifications }),
+  addNotification: (notification: Notification) =>
+    set((state) => {
+      const exists = state.notifications.some(
+        (n) => n._id === notification._id
+      );
+      if (!exists) {
+        return { notifications: [...state.notifications, notification] };
+      }
+      return state;
+    }),
+  setHasLoaded: (hasLoaded) => set({ hasLoaded }),
 }));
 
 export default useNotificationStore;

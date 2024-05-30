@@ -31,7 +31,6 @@ export const fetchNotifications = query({
       .withIndex("by_user", (qry) => qry.eq("userId", args.userId))
       .order("desc")
       .collect();
-
     return notifications;
   },
 });

@@ -1,16 +1,9 @@
 "use client";
 
-import Image from "next/image";
-import Link from "next/link";
 import { formatTime } from "@/lib/utils";
-import { api } from "@/convex/_generated/api";
-import { useQuery } from "convex/react";
-import { CommentForm } from "./comment-form";
 import { Comment } from "@/lib/types/type";
-import { comment } from "postcss";
 import UserImage from "../user-card/user-image";
 import UserCardName from "../user-card/user-card-name";
-import { Speator } from "../speator";
 import { Separator } from "../ui/separator";
 import CommentActionButton from "./comment-actions.button";
 import CommentButton from "./comment-button";
@@ -20,7 +13,7 @@ interface CommentCardProps {
   comment: Comment;
 }
 
-export const CommentCard = ({ comment }: CommentCardProps) => {
+const CommentCard = ({ comment }: CommentCardProps) => {
   const createdAtLabel = formatTime(comment._creationTime);
 
   return (
@@ -49,7 +42,7 @@ export const CommentCard = ({ comment }: CommentCardProps) => {
         </div>
       </div>
 
-      <div className="px-2 pt-2 flex ">
+      <div className="px-2 pt-2 flex">
         <div>
           {/* <Image
             src={session?.user.imageUrl ?? ""}
@@ -59,7 +52,7 @@ export const CommentCard = ({ comment }: CommentCardProps) => {
             className="border rounded-full"
           /> */}
         </div>
-        <CommentButton comment={comment} id={comment.threadId} />
+        <CommentButton comment={comment} threadId={comment.threadId} />
         {/* <div className="flex flex-col justify-start px-4">
           <span>{session?.user.username}</span>
           <CommentForm
@@ -74,5 +67,7 @@ export const CommentCard = ({ comment }: CommentCardProps) => {
   );
 };
 
+// Adding display name
+CommentCard.displayName = 'CommentCard';
+
 export default memo(CommentCard);
-// Reply to {userData[0].username}...

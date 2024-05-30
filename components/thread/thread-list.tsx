@@ -12,7 +12,7 @@ const ThreadList = ({ threads }: ThreadsProps) => {
       {threads.length > 0 ? (
         <div className="w-full">
           {threads.map((threads: Thread) => (
-            <ThreadCard key={threads?._id} threads={threads} />
+            <ThreadCard key={threads?._id} thread={threads} useLink={true} />
           ))}
         </div>
       ) : (

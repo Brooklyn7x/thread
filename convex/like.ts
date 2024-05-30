@@ -1,6 +1,5 @@
 import { v } from "convex/values";
 import { mutation, query } from "./_generated/server";
-import { threadId } from "worker_threads";
 
 export const getLike = query({
   args: { threadId: v.id("threads") },
@@ -13,7 +12,7 @@ export const getLike = query({
   },
 });
 
-export const createlike = mutation({
+export const toogleLike = mutation({
   args: {
     threadId: v.id("threads"),
     userId: v.string(),
@@ -33,27 +32,27 @@ export const createlike = mutation({
 
     if (existingLike) {
       await ctx.db.delete(existingLike._id);
+    } else {
+      await ctx.db.insert("likes", {
+        userId: args.userId,
+        threadId: args.threadId,
+      });
+
+      const thread = await ctx.db.get(args.threadId);
+
+      if (!thread) {
+        throw new Error("Thread not found");
+      }
+
+      await ctx.db.insert("notifications", {
+        type: "like",
+        userId: thread.userId,
+        actorId: args.userId,
+        entityId: args.threadId,
+        entityType: "like",
+        isRead: false,
+      });
     }
-
-    await ctx.db.insert("likes", {
-      userId: args.userId,
-      threadId: args.threadId,
-    });
-
-    const thread = await ctx.db.get(args.threadId);
-
-    if (!thread) {
-      throw new Error("Thread not found");
-    }
-
-    await ctx.db.insert("notifications", {
-      type: "like",
-      userId: thread.userId,
-      actorId: args.userId,
-      entityId: args.threadId,
-      entityType: "like",
-      isRead: false,
-    });
   },
 });
 
