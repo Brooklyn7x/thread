@@ -1,7 +1,6 @@
 "use client";
 "use strict";
 exports.__esModule = true;
-exports.CommentCard = void 0;
 var utils_1 = require("@/lib/utils");
 var user_image_1 = require("../user-card/user-image");
 var user_card_name_1 = require("../user-card/user-card-name");
@@ -9,7 +8,7 @@ var separator_1 = require("../ui/separator");
 var comment_actions_button_1 = require("./comment-actions.button");
 var comment_button_1 = require("./comment-button");
 var react_1 = require("react");
-exports.CommentCard = function (_a) {
+var CommentCard = function (_a) {
     var comment = _a.comment;
     var createdAtLabel = utils_1.formatTime(comment._creationTime);
     return (React.createElement(React.Fragment, null,
@@ -26,9 +25,11 @@ exports.CommentCard = function (_a) {
                     React.createElement("div", { className: "sm:hidden" },
                         React.createElement(comment_actions_button_1["default"], { threadId: comment.threadId }))),
                 React.createElement("p", { className: "pb-2 text-sm" }, comment.comments))),
-        React.createElement("div", { className: "px-2 pt-2 flex " },
+        React.createElement("div", { className: "px-2 pt-2 flex" },
             React.createElement("div", null),
             React.createElement(comment_button_1["default"], { comment: comment, threadId: comment.threadId })),
         React.createElement(separator_1.Separator, null)));
 };
-exports["default"] = react_1.memo(exports.CommentCard);
+// Adding display name
+CommentCard.displayName = 'CommentCard';
+exports["default"] = react_1.memo(CommentCard);

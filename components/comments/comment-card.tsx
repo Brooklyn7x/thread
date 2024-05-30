@@ -13,7 +13,7 @@ interface CommentCardProps {
   comment: Comment;
 }
 
-export const CommentCard = ({ comment }: CommentCardProps) => {
+const CommentCard = ({ comment }: CommentCardProps) => {
   const createdAtLabel = formatTime(comment._creationTime);
 
   return (
@@ -42,7 +42,7 @@ export const CommentCard = ({ comment }: CommentCardProps) => {
         </div>
       </div>
 
-      <div className="px-2 pt-2 flex ">
+      <div className="px-2 pt-2 flex">
         <div>
           {/* <Image
             src={session?.user.imageUrl ?? ""}
@@ -67,5 +67,7 @@ export const CommentCard = ({ comment }: CommentCardProps) => {
   );
 };
 
-export default memo(CommentCard);
+// Adding display name
+CommentCard.displayName = 'CommentCard';
 
+export default memo(CommentCard);
